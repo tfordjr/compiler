@@ -1,5 +1,5 @@
 GCC = g++
-CFLAGS = -std=c++11
+CFLAGS = -g -std=c++11
 
 make:
 	$(GCC) $(CFLAGS) -o P1 main.cpp

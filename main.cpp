@@ -5,19 +5,20 @@
 
 #include "scanner.cpp"
 
-int main(int argc, char* argv[]) {
+int main(int argc, char* argv[]){
 
     std::ifstream inputFile;  
     std::string input; 
 
-    if (argc > 2) {
+    if (argc > 2) {    //If too many args provided
         std::cerr << "Too many arguments" << std::endl;
         return 1;
-    } else if (argc == 1) {
+    } else if (argc == 1) {        //  If no args are provided, read stdin
         std::cout << "Needs to read from keyboard..." << std::endl;
         std::string line;
+
         while (std::getline(std::cin, line)) {
-            input += line + "\n";  // Append the line to the input string
+            input += line + '\n';  // store stdin in input string
         } 
     } else {
         std::string filename = std::string(argv[1]) + ".f23";
@@ -30,15 +31,13 @@ int main(int argc, char* argv[]) {
 	    std:: string line;       
 
             while (std::getline(inputFile, line)) {
-                input += line + "\n";
+                input += line + '\n';   // Store input file in input string
             }
      
         }
     }    
-
-
-    std::string source_code = "024x, ɀ, Ɂ ; 025x, ɐ, ɑ ; 026x, ɠ, ɡ ; 027x, ɰ,";
-    
+  
+ 
     Scanner scanner(input);
 
     Scanner::Token token;

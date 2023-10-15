@@ -16,7 +16,10 @@ public:
         Token token;
         char current_char;
 
-        while (position < source.size()) {
+		
+
+        while (position < source.size()) {   	
+
             current_char = source[position];
 
             if (std::isspace(current_char)) {
@@ -28,12 +31,19 @@ public:
             }
 
             if (std::isalpha(current_char) && islower(current_char)) {
+                if (current_char != 'x'){
+		    position++;
+		    continue;
+		}
+
                 token.type = "IDENTIFIER";
                 while (position < source.size() && isalnum(source[position])) {
                     if(token.lexeme.size() < 8)
                         token.lexeme += source[position++];
-                    else
-                        return token;
+                    else{
+                        token.line = line;
+		        return token;                         
+		    }
                 }
                 if (token.lexeme == "xopen" || token.lexeme == "xclose" || token.lexeme == "xloop" ||
                     token.lexeme == "xdata" || token.lexeme == "xexit" || token.lexeme == "xin" ||
@@ -41,6 +51,7 @@ public:
                     token.lexeme == "xlet" || token.lexeme == "xfunc") {
                     token.type = "KEYWORD";
                 }
+		token.line = line;
                 return token;
             }
 
@@ -61,6 +72,7 @@ public:
                 } else {
                     reportError("error: scanner.cpp: comment does not close with '$'");
                 }
+		token.line = line;
                 return token;
             }
 
@@ -73,6 +85,7 @@ public:
                     || (token.lexeme == ">") && (source[position] == *">"))) {
                     token.lexeme += source[position++];
                 }
+		token.line = line;
                 return token;
             }
 
@@ -81,9 +94,12 @@ public:
                 while (position < source.size() && std::isdigit(source[position])) {
                     if(token.lexeme.size() < 8)
                         token.lexeme += source[position++];
-                    else
+                    else{
+			token.line = line;
                         return token;
+		    }
                 }
+		token.line = line;
                 return token;
             }
             
