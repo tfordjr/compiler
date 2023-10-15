@@ -3,8 +3,6 @@
 #include <cctype>
 #include <fstream>
 
-#include "scanner.h"
-#include "token.h"
 #include "scanner.cpp"
 
 int main() {

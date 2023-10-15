@@ -2,9 +2,6 @@
 #include <string>
 #include <cctype>
 
-#include "token.h"
-#include "scanner.h"
-
 class Scanner {
 public:
     Scanner(const std::string& source) : source(source), position(0), line(1) {}
