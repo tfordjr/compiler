@@ -3,4 +3,14 @@ git - https://github.com/tfordjr/scanner
 
 IMPLEMENTATION 2 - NO SPACES REQUIRED
 
-Scanner for simple made up grammars implemented in cpp
+Three options for invokation:
+./P1                                      Read from stdin (stop input with Ctrl+D)
+./P1 filename(exclude extention)          Read from file, .f23 file extention assumed
+./P1 < filename(include extention)        Put file into stdin
+
+implementation: 
+scanner.cpp source code that returns a single token struct for each execution.
+main.cpp source code including arg checking and a while loop to return many tokens.
+three testing files 
+simple makefile and readme included
+

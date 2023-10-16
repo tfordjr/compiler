@@ -7,8 +7,8 @@
 
 int main(int argc, char* argv[]){
 
-    std::ifstream inputFile;  
-    std::string input; 
+    std::ifstream inputFile;  // File Object
+    std::string input;        // input buffer will hold input regardless of input method
 
     if (argc > 2) {    //If too many args provided
         std::cerr << "Too many arguments" << std::endl;
@@ -21,10 +21,10 @@ int main(int argc, char* argv[]){
             input += line + '\n';  // store stdin in input string
         } 
     } else {
-        std::string filename = std::string(argv[1]) + ".f23";
+        std::string filename = std::string(argv[1]) + ".f23"; // append .f23 to filename
         inputFile.open(filename);
         if (!inputFile) {
-            std::cerr << "Can't open file..." << std::endl;
+            std::cerr << "Can't open file..." << std::endl;  // error checking file
             return 1;
         } else {
             std::cout << "File opened successfully!" << std::endl;          
@@ -32,14 +32,11 @@ int main(int argc, char* argv[]){
 
             while (std::getline(inputFile, line)) {
                 input += line + '\n';   // Store input file in input string
-            }
-     
+            }     
         }
-    }    
-  
+    }      
  
     Scanner scanner(input);
-
     Scanner::Token token;
     do {
         token = scanner.getNextToken();
