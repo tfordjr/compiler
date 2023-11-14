@@ -18,6 +18,7 @@ string tokenNames[]= {"EOFTk", "IDTk", "INTTk", "ASSIGNTk",
 };
 
 Scanner::Token tk;
+char c;
 
 node *Program();
 node *Vars();
@@ -36,6 +37,28 @@ node *If();
 node *Loop();
 node *Assign();
 node *RO();
+
+
+node *Program(){
+    node *node = createNode(PROGRAMn);
+    node-> child1 = Vars();
+    node-> child2 = Stats();
+    return node;
+}
+
+node *Vars(){
+    node *node = createNode(VARSn);
+    if(tk.lexeme == "xdata"){
+        cout << "xdata is lexeme\n";
+    } else {
+        return node;
+    }
+}
+
+node *Stats(){
+    node *node = createNode(STATSn);
+    return node;
+}
 
 node *parser(string input) {  
 
