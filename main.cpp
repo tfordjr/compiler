@@ -3,7 +3,7 @@
 #include <cctype>
 #include <fstream>
 
-#include "scanner.cpp"
+#include "scanner.h"
 #include "testTree.h"
 #include "node.h"
 #include "parser.h"

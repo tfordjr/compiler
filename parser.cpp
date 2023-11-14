@@ -3,7 +3,7 @@
 #include <cstdlib>
 #include <string>
 #include <cctype>
-#include "scanner.cpp"
+#include "scanner.h"
 #include "parser.h"
 #include "testTree.h"
 using namespace std;

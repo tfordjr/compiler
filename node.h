@@ -1,7 +1,6 @@
 #ifndef NODE_H
 #define NODE_H
-#include "scanner.cpp"
-
+#include "scanner.h"
 enum nodeType { 
 	PROGRAMn, BLOCKn, VARSn, EXPn, An, Nn, Mn, Rn, STATSn, MSTATn, STATn, 
 	INn, OUTn, IFn, LOOPn, ASSIGNn, ROn
