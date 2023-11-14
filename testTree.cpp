@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <iostream>
 #include <string>
-#include "scanner.cpp"
 #include "node.h"
 #include "testTree.h"
 
