@@ -4,6 +4,10 @@
 #include <fstream>
 
 #include "scanner.cpp"
+#include "testTree.h"
+#include "node.h"
+#include "parser.h"
+
 
 int main(int argc, char* argv[]){
 

@@ -37,7 +37,7 @@ node *Loop();
 node *Assign();
 node *RO();
 
-node * parser(string input) {  
+node *parser(string input) {  
 
     Scanner scanner(input);   
     Scanner::Token token;
@@ -48,7 +48,7 @@ node * parser(string input) {
     if (token.type == "EOF"){
         return root;
     } else {
-        cout << "Error: Parsing Error\n"
+        cout << "Error: Parsing Error\n";
         exit(1);
     }
 }
