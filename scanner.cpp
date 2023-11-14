@@ -2,11 +2,7 @@
 #include <string>
 #include <cctype>
 
-<<<<<<< HEAD
-
-=======
 #include "scanner.h"
->>>>>>> e108750ed42b2599f68f736770f6d3c62879c8b4
 
 class Scanner {
 public:
