@@ -1,6 +1,6 @@
 #ifndef NODE_H
 #define NODE_H
-#include "token.h"
+#include "scanner.cpp"
 
 enum nodeType { 
 	PROGRAMn, BLOCKn, VARSn, EXPn, An, Nn, Mn, Rn, STATSn, MSTATn, STATn, 
@@ -10,7 +10,11 @@ enum nodeType {
 struct node
 {
 	nodeType label;
-	token tk1, tk2, tk3, tk4, tk5;
+	Scanner::Token tk1;
+    Scanner::Token tk2;
+    Scanner::Token tk3;
+    Scanner::Token tk4;
+    Scanner::Token tk5;
 	node *child1, *child2, *child3, *child4;
 };
 

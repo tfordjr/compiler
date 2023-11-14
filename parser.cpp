@@ -17,6 +17,8 @@ string tokenNames[]= {"EOFTk", "IDTk", "INTTk", "ASSIGNTk",
 	"KEYWORDTk", "ERROR", "FALSEID"
 };
 
+Scanner::Token tk;
+
 node *Program();
 node *Vars();
 node *VarList();

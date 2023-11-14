@@ -1,13 +1,11 @@
 #include <stdio.h>
 #include <iostream>
 #include <string>
-#include "token.h"
+#include "scanner.cpp"
 #include "node.h"
 #include "testTree.h"
 
 using namespace std;
-
-
 
 string labelNames[] = {
 	"PROGRAM", "BLOCK", "VARS", "EXP", "A", "N", "M", "R", "STATS", 
@@ -20,11 +18,11 @@ node * createNode(nodeType l)
 	node * root = new node;
 	root-> label = l;
 
-	token token1;
-	token token2;
-	token token3;
-	token token4;
-	token token5;
+	Scanner::Token token1;
+	Scanner::Token token2;
+	Scanner::Token token3;
+	Scanner::Token token4;
+	Scanner::Token token5;
 	root -> tk1 = token1;
 	root -> tk2 = token2;
 	root -> tk3 = token3;
@@ -64,29 +62,29 @@ void printNode(node *n, int depth)
 	
     cout << space << labelNames[n-> label] << ": "; 
 
-	if(n-> tk1.tokenInstance != "")
+	if(n-> tk1.lexeme != "")
 	{
-		cout << n->tk1.tokenInstance << " ";
+		cout << n->tk1.lexeme << " ";
 	}
 
-	if(n-> tk2.tokenInstance != "")
+	if(n-> tk2.lexeme != "")
 	{
-		cout << n->tk2.tokenInstance << " ";
+		cout << n->tk2.lexeme << " ";
 	}
 
-	if(n-> tk3.tokenInstance != "")
+	if(n-> tk3.lexeme != "")
 	{
-   	         cout << n->tk3.tokenInstance << " ";
+   	         cout << n->tk3.lexeme << " ";
 	}
 
-	if(n-> tk4.tokenInstance != "")
+	if(n-> tk4.lexeme != "")
 	{
-		cout << n->tk4.tokenInstance << " ";
+		cout << n->tk4.lexeme << " ";
 	}
 
-	if(n-> tk5.tokenInstance != "")
+	if(n-> tk5.lexeme != "")
 	{
-		cout << n-> tk5.tokenInstance << " ";
+		cout << n-> tk5.lexeme << " ";
 	}	
     
 	cout << endl;
