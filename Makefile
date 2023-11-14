@@ -1,8 +1,9 @@
 GCC = g++
 CFLAGS = -g -std=c++11
+SRCS= main.cpp parser.cpp scanner.cpp testTree.cpp
 
 make:
-	$(GCC) $(CFLAGS) -o P1 main.cpp
+	$(GCC) $(CFLAGS) -o P2 $(SRCS)
 
 clean: 
-	rm -f P1
+	rm -f P2
