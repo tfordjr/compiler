@@ -2,6 +2,8 @@
 #include <string>
 #include <cctype>
 
+#include "scanner.h"
+
 class Scanner {
 public:
     Scanner(const std::string& source) : source(source), position(0), line(1) {}
