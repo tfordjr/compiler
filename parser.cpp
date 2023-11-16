@@ -64,11 +64,19 @@ node *parser(string input) {
 
     Scanner scanner(input);   
     Scanner::Token token;
-    tk = scanner.getNextToken();   
-    
-    node * root;
+    tk = scanner.getNextToken();
+
+    node *root;
     root = Program();
-    if (token.type == "EOF"){
+
+
+    // DELETE
+    while(tk.type != "EOF"){
+        tk = scanner.getNextToken();
+    }
+    // DELETE
+
+    if (tk.type == "EOF"){
         return root;
     } else {
         cout << "Error: Parsing Error\n";
