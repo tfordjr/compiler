@@ -7,8 +7,8 @@
 using namespace std;
 
 string labelNames[] = {
-	"PROGRAM", "BLOCK", "VARS", "EXP", "A", "N", "M", "R", "STATS", 
-	"MSTAT", "STAT", "IN", "OUT", "IF", "LOOP", "ASSIGN", "RO"
+	"PROGRAM", "VARS", "VARLIST", "EXP", "M", "N", "R", "STATS", 
+	"MSTAT", "STAT", "BLOCK", "IN", "OUT", "IF", "LOOP", "ASSIGN", "RO"
 };
 
 
@@ -73,7 +73,7 @@ void printNode(node *n, int depth)
 
 	if(n-> tk3.lexeme != "")
 	{
-   	         cout << n->tk3.lexeme << " ";
+   	    cout << n->tk3.lexeme << " ";
 	}
 
 	if(n-> tk4.lexeme != "")

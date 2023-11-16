@@ -2,8 +2,8 @@
 #define NODE_H
 #include "scanner.h"
 enum nodeType { 
-	PROGRAMn, BLOCKn, VARSn, EXPn, An, Nn, Mn, Rn, STATSn, MSTATn, STATn, 
-	INn, OUTn, IFn, LOOPn, ASSIGNn, ROn
+	PROGRAMn, VARSn, VARLISTn, EXPn, Mn, Nn, Rn, STATSn, MSTATn, STATn, 
+	BLOCKn, INn, OUTn, IFn, LOOPn, ASSIGNn, ROn
 };
 
 struct node

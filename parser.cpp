@@ -57,10 +57,20 @@ node *Vars(){
 
 node *Stats(){
     node *node = createNode(STATSn);
+    node-> child1 = Stat();
+    node-> child2 = Mstat();
     return node;
 }
 
+node *Stat(){
+    node *node = createNode(STATn);
+    return node;
+}
 
+node *Mstat(){
+    node *node = createNode(MSTATn);
+    return node;
+}
 
 node *parser(string input) {  
 
