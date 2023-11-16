@@ -71,16 +71,22 @@ node *parser(string input) {
 
 
     // DELETE
-    while(tk.type != "EOF"){
-        tk = scanner.getNextToken();
-    }
+    // while(tk.type != "EOF"){
+    //     tk = scanner.getNextToken();
+    // }
     // DELETE
 
-    if (tk.type == "EOF"){
-        return root;
-    } else {
+    if (tk.type != "EOF"){
         cout << "Error: Parsing Error\n";
-        exit(1);
     }
+
+    return root;
+
+    // if (tk.type == "EOF"){
+    //     return root;
+    // } else {
+    //     cout << "Error: Parsing Error\n";        
+    //     exit(1);
+    // }
 }
 
