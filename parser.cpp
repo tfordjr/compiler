@@ -42,7 +42,17 @@ void errorMsg(string);
 node *Program(Scanner scanner){
     node *node = createNode(PROGRAMn);
     node-> child1 = Vars(scanner);
+
+    if (tk.lexeme != "xopen")
+        errorMsg("xopen");
+    tk = scanner.getNextToken();
+
     node-> child2 = Stats(scanner);
+
+    if (tk.lexeme != "xclose")
+        errorMsg("xclose");
+    tk = scanner.getNextToken();
+
     return node;
 }
 
@@ -151,7 +161,8 @@ node *Stats(Scanner scanner){
 
 node *Mstat(Scanner scanner){   // I think this code is good but too early to test
     node *node = createNode(MSTATn);
-    if (tk.lexeme != "}" && tk.lexeme != "xclose"){
+    if (tk.lexeme == "xin" || tk.lexeme == "xout" || tk.lexeme == "{" || 
+    tk.lexeme == "xcond" || tk.lexeme == "xloop" || tk.lexeme == "xlet"){
         node-> child1 = Stat(scanner);
         node-> child2 = Mstat(scanner);   
     }
@@ -159,17 +170,7 @@ node *Mstat(Scanner scanner){   // I think this code is good but too early to te
 }
 
 node *Stat(Scanner scanner){
-    node *node = createNode(STATn);
-
-    // cout << "Flag: Line " << tk.line << ": 1 tk expected, ";
-    // cout << tk.lexeme << " token was received instead\n";
-
-    if (tk.lexeme != "xopen")
-        errorMsg("xopen");
-    tk = scanner.getNextToken();
-
-    // cout << "Flag: Line " << tk.line << ": 2 tk expected, ";
-    // cout << tk.lexeme << " token was received instead\n";    
+    node *node = createNode(STATn);      
 
     if (tk.lexeme == "xin") {
         tk = scanner.getNextToken();
