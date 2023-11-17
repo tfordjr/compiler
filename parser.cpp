@@ -177,7 +177,7 @@ node *Stat(Scanner scanner){
 
     if (tk.lexeme == "xin") {
         tk = scanner.getNextToken();
-        node-> child1 = Stat(scanner);
+        node-> child1 = In(scanner);
     } else if (tk.lexeme == "xout"){
         tk = scanner.getNextToken();
         node-> child1 = Out(scanner);
@@ -239,19 +239,12 @@ node *Out(Scanner scanner){
         errorMsg("<<"); 
     tk = scanner.getNextToken();
 
-    node-> child1 = Exp(scanner);
-
-    cout << "Flag1: tk value - " << tk.lexeme;
+    node-> child1 = Exp(scanner);    
 
     if (tk.lexeme != ";")
-        errorMsg(";"); 
-
-    cout << "Flag2: tk value - " << tk.lexeme;
+        errorMsg(";");     
     
     tk = scanner.getNextToken();
-    tk = scanner.getNextToken();
-
-    cout << "Flag3: tk value - " << tk.lexeme;
 
     return node;
 }
