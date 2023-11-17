@@ -100,8 +100,9 @@ node *Stat(Scanner scanner){
     cout << "Flag: Line " << tk.line << ": 1 tk expected, ";
     cout << tk.lexeme << " token was received instead\n";
 
-    if (tk.lexeme != "xopen")
+    if (tk.lexeme != "xopen"){
         errorMsg("xopen");
+    }        
     tk = scanner.getNextToken();
 
     cout << "Error: Line " << tk.line << ": 2 tk expected, ";
