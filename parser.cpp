@@ -97,9 +97,15 @@ node *Stats(Scanner scanner){
 node *Stat(Scanner scanner){
     node *node = createNode(STATn);
 
+    cout << "Error: Line " << tk.line << ": local scope 1 tk expected, ";
+    cout << tk.lexeme << " token was received instead\n";
+
     if (tk.lexeme != "xopen")
         errorMsg("xopen");
     tk = scanner.getNextToken();    
+
+    cout << "Error: Line " << tk.line << ": local scope 2 tk expected, ";
+    cout << tk.lexeme << " token was received instead\n";
 
     if (tk.lexeme == "xin") {
         tk = scanner.getNextToken();
