@@ -17,6 +17,9 @@ string tokenNames[]= {"EOFTk", "IDTk", "INTTk", "ASSIGNTk",
 	"KEYWORDTk", "ERROR", "FALSEID"
 };
 
+Scanner::Token tk;
+char c;
+
 node *Program(Scanner);
 node *Vars(Scanner);
 node *VarList(Scanner);
@@ -35,9 +38,6 @@ node *Loop(Scanner);
 node *Assign(Scanner);
 node *RO(Scanner);
 void errorMsg(string);
-
-Scanner::Token tk;
-char c;
 
 node *Program(Scanner scanner){
     node *node = createNode(PROGRAMn);
@@ -120,6 +120,8 @@ node *Stat(Scanner scanner){
         tk = scanner.getNextToken();
         node-> child1 = Assign(scanner);
     } else {
+        cout << "Error: Line " << tk.line << ": local scope tk expected, ";
+        cout << tk.lexeme << " token was received instead\n";
         errorMsg("xin or xout or { or xcond or xloop or xlet");
     }  
 
