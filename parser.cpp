@@ -107,6 +107,16 @@ node *Stat(Scanner scanner){
     cout << "Error: Line " << tk.line << ": local scope 2 tk expected, ";
     cout << tk.lexeme << " token was received instead\n";
 
+    tk = scanner.getNextToken();    
+
+    cout << "Error: Line " << tk.line << ": local scope 3 tk expected, ";
+    cout << tk.lexeme << " token was received instead\n";
+
+    tk = scanner.getNextToken();    
+
+    cout << "Error: Line " << tk.line << ": local scope 4 tk expected, ";
+    cout << tk.lexeme << " token was received instead\n";
+
     if (tk.lexeme == "xin") {
         tk = scanner.getNextToken();
         node-> child1 = Stat(scanner);
