@@ -180,5 +180,5 @@ node *parser(string input) {
 void errorMsg(string expected) {
     cout << "Error: Line " << tk.line << ": " << expected << " tk expected, ";
     cout << tk.lexeme << " token was received instead\n";
-    exit(1);
+    //exit(1);
 }
