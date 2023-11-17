@@ -92,12 +92,12 @@ node *Stats(Scanner scanner){
     return node;
 }
 
-node *Mstat(Scanner scanner){
+node *Mstat(Scanner scanner){   // I think this code is good but too early to test
     node *node = createNode(MSTATn);
-    if (tk.lexeme != "}" && tk.lexeme != "xclose"){
-        node-> child1 = Stat(scanner);
-        node-> child2 = Mstat(scanner);
-    }
+    // if (tk.lexeme != "}" && tk.lexeme != "xclose"){
+    //     node-> child1 = Stat(scanner);
+    //     node-> child2 = Mstat(scanner);   
+    // }
     return node;
 }
 
