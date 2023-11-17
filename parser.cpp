@@ -17,9 +17,6 @@ string tokenNames[]= {"EOFTk", "IDTk", "INTTk", "ASSIGNTk",
 	"KEYWORDTk", "ERROR", "FALSEID"
 };
 
-Scanner::Token tk;
-char c;
-
 node *Program(Scanner);
 node *Vars(Scanner);
 node *VarList(Scanner);
@@ -39,6 +36,8 @@ node *Assign(Scanner);
 node *RO(Scanner);
 void errorMsg(string);
 
+Scanner::Token tk;
+char c;
 
 node *Program(Scanner scanner){
     node *node = createNode(PROGRAMn);
@@ -100,12 +99,7 @@ node *Stat(Scanner scanner){
 
     if (tk.lexeme != "xopen")
         errorMsg("xopen");
-    tk = scanner.getNextToken();
-
-    if (tk.lexeme == "\t"){
-        errorMsg("tab un");
-        tk = scanner.getNextToken();
-    }
+    tk = scanner.getNextToken();    
 
     if (tk.lexeme == "xin") {
         tk = scanner.getNextToken();
