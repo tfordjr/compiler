@@ -97,15 +97,15 @@ node *Stats(Scanner scanner){
 node *Stat(Scanner scanner){
     node *node = createNode(STATn);
 
-    cout << "Flag: Line " << tk.line << ": xout tk expected, ";
+    cout << "Flag: Line " << tk.line << ": 1 tk expected, ";
     cout << tk.lexeme << " token was received instead\n";
 
     if (tk.lexeme != "xopen")
         errorMsg("xopen");
     tk = scanner.getNextToken();
 
-    // cout << "Error: Line " << tk.line << ": local scope 2 tk expected, ";
-    // cout << tk.lexeme << " token was received instead\n";
+    cout << "Error: Line " << tk.line << ": 2 tk expected, ";
+    cout << tk.lexeme << " token was received instead\n";
 
     // tk = scanner.getNextToken();    
 
@@ -136,8 +136,6 @@ node *Stat(Scanner scanner){
         tk = scanner.getNextToken();
         node-> child1 = Assign(scanner);
     } else {
-        cout << "Error: Line " << tk.line << ": local scope tk expected, ";
-        cout << tk.lexeme << " token was received instead\n";
         errorMsg("xin or xout or { or xcond or xloop or xlet");
     }  
 
