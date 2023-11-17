@@ -246,6 +246,10 @@ node *Out(Scanner scanner){
 
     cout << "\n\nFlag2: tk value: " << tk.lexeme << "\n\n";
 
+    tk = scanner.getNextToken();
+
+    cout << "\n\nFlag3: tk value: " << tk.lexeme << "\n\n";
+
     return node;
 }
 
