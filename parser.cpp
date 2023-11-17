@@ -102,6 +102,11 @@ node *Stat(Scanner scanner){
         errorMsg("xopen");
     tk = scanner.getNextToken();
 
+    if (tk.lexeme == "\t"){
+        errorMsg("tab un");
+        tk = scanner.getNextToken();
+    }
+
     if (tk.lexeme == "xin") {
         tk = scanner.getNextToken();
         node-> child1 = Stat(scanner);
