@@ -54,35 +54,29 @@ void printNode(node *n, int depth)
 {
 	string space = "";
 
-	for(int i = 0; i< depth*2; i++)
-	{
+	for(int i = 0; i< depth*2; i++){
 		space= space + " ";
 	} 
 	
     cout << space << labelNames[n-> label] << ": "; 
 
-	if(n-> tk1.lexeme != "")
-	{
+	if(n-> tk1.lexeme != ""){
 		cout << n->tk1.lexeme << " ";
 	}
 
-	if(n-> tk2.lexeme != "")
-	{
+	if(n-> tk2.lexeme != ""){
 		cout << n->tk2.lexeme << " ";
 	}
 
-	if(n-> tk3.lexeme != "")
-	{
+	if(n-> tk3.lexeme != ""){
    	    cout << n->tk3.lexeme << " ";
 	}
 
-	if(n-> tk4.lexeme != "")
-	{
+	if(n-> tk4.lexeme != ""){
 		cout << n->tk4.lexeme << " ";
 	}
 
-	if(n-> tk5.lexeme != "")
-	{
+	if(n-> tk5.lexeme != ""){
 		cout << n-> tk5.lexeme << " ";
 	}	
     
