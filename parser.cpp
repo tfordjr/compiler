@@ -139,13 +139,43 @@ node *Stat(Scanner scanner){
     return node;
 }
 
+node *Exp(Scanner scanner){
+    node *node = createNode(EXPn);
+    return node;
+}
+
 node *In(Scanner scanner){
     node *node = createNode(INn);
+
+    if (tk.lexeme != ">>")
+        errorMsg(">>");    
+    tk = scanner.getNextToken();
+    
+    if (tk.type != "IDENTIFIER")
+        errorMsg("IDENTIFIER");    
+    node-> tk1 = tk;
+    tk = scanner.getNextToken();
+
+    if (tk.lexeme != ";")
+        errorMsg(";");  
+    tk = scanner.getNextToken();
+
     return node;
 }
 
 node *Out(Scanner scanner){
     node *node = createNode(OUTn);
+
+    if (tk.lexeme != "<<")
+        errorMsg("<<"); 
+    tk = scanner.getNextToken();
+
+    node-> child1 = Exp(scanner);
+
+    if (tk.lexeme != ";")
+        errorMsg(";"); 
+    tk = scanner.getNextToken();
+
     return node;
 }
 
@@ -166,6 +196,18 @@ node *Loop(Scanner scanner){
 
 node *Assign(Scanner scanner){
     node *node = createNode(ASSIGNn);
+
+    if (tk.type != "IDENTIFIER")
+        errorMsg("IDENTIFIER");    
+    node-> tk1 = tk;
+    tk = scanner.getNextToken();   
+
+    node-> child1 = Exp(scanner);
+
+    if (tk.lexeme != ";")
+        errorMsg(";"); 
+    tk = scanner.getNextToken();
+
     return node;
 }
 
