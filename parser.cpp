@@ -241,9 +241,16 @@ node *Out(Scanner scanner){
 
     node-> child1 = Exp(scanner);
 
+    cout << "Flag1: tk value - " << tk.lexeme;
+
     if (tk.lexeme != ";")
         errorMsg(";"); 
+
+    cout << "Flag2: tk value - " << tk.lexeme;
+    
     tk = scanner.getNextToken();
+
+    cout << "Flag3: tk value - " << tk.lexeme;
 
     return node;
 }
