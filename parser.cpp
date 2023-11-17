@@ -85,6 +85,63 @@ node *VarList(Scanner scanner){
     return node;
 }
 
+node *Exp(Scanner scanner){
+    node *node = createNode(EXPn);
+
+    node-> child1 = M(scanner);
+
+    // If / or * next, <exp>,  else return node (no else statement)
+
+    return node;
+}
+
+node *M(Scanner scanner){
+    node *node = createNode(Mn);
+
+    node-> child1 = N(scanner);
+
+    return node;
+}
+
+node *N(Scanner scanner){
+    node *node = createNode(Nn);
+
+    if (tk.lexeme == "~"){
+        node-> tk1 = tk;
+        tk = scanner.getNextToken();
+        node-> child1 = N(scanner);
+    } else {
+        tk = scanner.getNextToken();
+        node-> child1 = R(scanner);        
+        if (tk.lexeme == "-"){
+            node-> tk1 = tk;
+            tk = scanner.getNextToken();
+            node-> child1 = N(scanner); 
+        } 
+    }
+
+    return node;
+}
+
+node *R(Scanner scanner){
+    node *node = createNode(Rn);
+
+    if (tk.lexeme == "(") {        
+        node-> child1 = Exp(scanner);
+        if(tk.lexeme != ")")
+            errorMsg(")");
+        tk = scanner.getNextToken();
+    } else if (tk.type == "IDENTIFIER"){
+        node-> tk1 = tk;
+        tk = scanner.getNextToken();
+    } else if (tk.type == "INTEGER"){
+        node-> tk1 = tk;
+        tk = scanner.getNextToken();
+    }
+
+    return node;
+}
+
 node *Stats(Scanner scanner){
     node *node = createNode(STATSn);
     node-> child1 = Stat(scanner);
@@ -139,8 +196,8 @@ node *Stat(Scanner scanner){
     return node;
 }
 
-node *Exp(Scanner scanner){
-    node *node = createNode(EXPn);
+node *Block(Scanner scanner){
+    node *node = createNode(BLOCKn);
     return node;
 }
 
@@ -176,11 +233,6 @@ node *Out(Scanner scanner){
         errorMsg(";"); 
     tk = scanner.getNextToken();
 
-    return node;
-}
-
-node *Block(Scanner scanner){
-    node *node = createNode(BLOCKn);
     return node;
 }
 
