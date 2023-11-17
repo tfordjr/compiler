@@ -50,7 +50,7 @@ node *Vars(Scanner scanner){
     node *node = createNode(VARSn);
     if(tk.lexeme == "xdata"){
         tk = scanner.getNextToken();
-        VarList(scanner);
+        node-> child1 = VarList(scanner);
         return node;
     } else {
         return node;
