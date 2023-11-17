@@ -37,6 +37,7 @@ node *If(Scanner);
 node *Loop(Scanner);
 node *Assign(Scanner);
 node *RO(Scanner);
+void errorMsg(string);
 
 
 node *Program(Scanner scanner){
@@ -60,29 +61,30 @@ node *Vars(Scanner scanner){
 node *VarList(Scanner scanner){
     node *node = createNode(VARLISTn);
 
-    if (tk.type == "IDENTIFIER"){
-        node-> tk1 = tk;
+    if (tk.type != "IDENTIFIER")
+        errorMsg("IDENTIFIER");    
+    node-> tk1 = tk;
+    tk = scanner.getNextToken();
+
+    if (tk.lexeme == ":") 
+        errorMsg("COLON");
+    node-> tk2 = tk;
+    tk = scanner.getNextToken(); 
+    
+    if (tk.type == "INTEGER")
+        errorMsg("INTEGER");
+    node-> tk3 = tk;
+    tk = scanner.getNextToken();
+
+    if (tk.lexeme == ";"){
+        node-> tk4 = tk;
         tk = scanner.getNextToken();
-        if (tk.lexeme == ":") {
-            node-> tk2 = tk;
-            tk = scanner.getNextToken(); 
-            if (tk.type == "INTEGER"){
-                node-> tk3 = tk;
-                tk = scanner.getNextToken();
-                if (tk.lexeme == ";"){
-                    node-> tk4 = tk;
-                    tk = scanner.getNextToken();
-                    return node;
-                } else if (tk.type == "IDENTIFIER") {
-                    node-> child1 = VarList(scanner);
-                } else {
-                    cout << "Error: Line " << tk.line << "; or ID tk expected,";
-                    cout << tk.lexeme << " token was received instead";
-                    exit(1);
-                }
-            }
-        }               
-    }
+    } else if (tk.type == "IDENTIFIER") {
+        node-> child1 = VarList(scanner);
+    } else {
+        errorMsg("; or IDENTIFIER");
+    }                          
+
     return node;
 }
 
@@ -124,3 +126,8 @@ node *parser(string input) {
     return root;
 }
 
+void errorMsg(string expected) {
+    cout << "Error: Line " << tk.line << ": " << expected << " tk expected, ";
+    cout << tk.lexeme << " token was received instead";
+    exit(1);
+}
