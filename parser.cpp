@@ -198,6 +198,14 @@ node *Stat(Scanner scanner){
 
 node *Block(Scanner scanner){
     node *node = createNode(BLOCKn);
+
+    node-> child1 = Vars(scanner);
+    node-> child2 = Stats(scanner);
+
+    if(tk.lexeme != "}")
+        errorMsg("}");
+    tk = scanner.getNextToken();
+
     return node;
 }
 
@@ -238,11 +246,41 @@ node *Out(Scanner scanner){
 
 node *If(Scanner scanner){
     node *node = createNode(IFn);
+
+    if (tk.lexeme != "[")
+        errorMsg("["); 
+    tk = scanner.getNextToken();
+
+    node-> child1 = Exp(scanner);
+    node-> child2 = RO(scanner);
+    node-> child3 = Exp(scanner);
+
+    if (tk.lexeme != "]")
+        errorMsg("]"); 
+    tk = scanner.getNextToken();
+
+    node-> child4 = Stat(scanner);
+
     return node;
 }
 
 node *Loop(Scanner scanner){
     node *node = createNode(LOOPn);
+
+    if (tk.lexeme != "[")
+        errorMsg("["); 
+    tk = scanner.getNextToken();
+
+    node-> child1 = Exp(scanner);
+    node-> child2 = RO(scanner);
+    node-> child3 = Exp(scanner);
+
+    if (tk.lexeme != "]")
+        errorMsg("]"); 
+    tk = scanner.getNextToken();
+
+    node-> child4 = Stat(scanner);
+
     return node;
 }
 
@@ -260,6 +298,24 @@ node *Assign(Scanner scanner){
         errorMsg(";"); 
     tk = scanner.getNextToken();
 
+    return node;
+}
+
+node *RO(Scanner scanner){
+    node *node = createNode(ROn);
+    
+    if (tk.lexeme == "<<" || tk.lexeme == ">>"){
+        node-> tk1 = tk;
+        tk = scanner.getNextToken();
+        node->tk2 = tk;
+        return node;
+    } 
+
+    if (tk.lexeme != "<" && tk.lexeme != ">" && tk.lexeme != "=" && tk.lexeme != "%")
+        errorMsg("< or > or = or %");
+    node-> tk1 = tk;
+    tk = scanner.getNextToken();
+    
     return node;
 }
 
