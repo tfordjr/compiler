@@ -51,10 +51,8 @@ node *Vars(Scanner scanner){
     if(tk.lexeme == "xdata"){
         tk = scanner.getNextToken();
         node-> child1 = VarList(scanner);
-        return node;
-    } else {
-        return node;
-    }
+    } 
+    return node;    
 }
 
 node *VarList(Scanner scanner){
@@ -91,6 +89,15 @@ node *Stats(Scanner scanner){
     node *node = createNode(STATSn);
     node-> child1 = Stat(scanner);
     node-> child2 = Mstat(scanner);
+    return node;
+}
+
+node *Mstat(Scanner scanner){
+    node *node = createNode(MSTATn);
+    if (tk.lexeme != "}" && tk.lexeme != "xclose"){
+        node-> child1 = Stat(scanner);
+        node-> child2 = Mstat(scanner);
+    }
     return node;
 }
 
@@ -159,11 +166,6 @@ node *Loop(Scanner scanner){
 
 node *Assign(Scanner scanner){
     node *node = createNode(ASSIGNn);
-    return node;
-}
-
-node *Mstat(Scanner scanner){
-    node *node = createNode(MSTATn);
     return node;
 }
 
