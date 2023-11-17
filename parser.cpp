@@ -151,10 +151,10 @@ node *Stats(Scanner scanner){
 
 node *Mstat(Scanner scanner){   // I think this code is good but too early to test
     node *node = createNode(MSTATn);
-    // if (tk.lexeme != "}" && tk.lexeme != "xclose"){
-    //     node-> child1 = Stat(scanner);
-    //     node-> child2 = Mstat(scanner);   
-    // }
+    if (tk.lexeme != "}" && tk.lexeme != "xclose"){
+        node-> child1 = Stat(scanner);
+        node-> child2 = Mstat(scanner);   
+    }
     return node;
 }
 
@@ -315,7 +315,7 @@ node *RO(Scanner scanner){
         errorMsg("< or > or = or %");
     node-> tk1 = tk;
     tk = scanner.getNextToken();
-    
+
     return node;
 }
 
@@ -339,5 +339,5 @@ node *parser(string input) {
 void errorMsg(string expected) {
     cout << "Error: Line " << tk.line << ": " << expected << " tk expected, ";
     cout << tk.lexeme << " token was received instead\n";
-    //exit(1);
+    exit(1);
 }
