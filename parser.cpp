@@ -20,67 +20,91 @@ string tokenNames[]= {"EOFTk", "IDTk", "INTTk", "ASSIGNTk",
 Scanner::Token tk;
 char c;
 
-node *Program();
-node *Vars();
-node *VarList();
-node *Exp();
-node *M();
-node *N();
-node *R();
-node *Stats();
-node *Mstat();
-node *Stat();
-node *Block();
-node *In();
-node *Out();
-node *If();
-node *Loop();
-node *Assign();
-node *RO();
+node *Program(Scanner);
+node *Vars(Scanner);
+node *VarList(Scanner);
+node *Exp(Scanner);
+node *M(Scanner);
+node *N(Scanner);
+node *R(Scanner);
+node *Stats(Scanner);
+node *Mstat(Scanner);
+node *Stat(Scanner);
+node *Block(Scanner);
+node *In(Scanner);
+node *Out(Scanner);
+node *If(Scanner);
+node *Loop(Scanner);
+node *Assign(Scanner);
+node *RO(Scanner);
 
 
-node *Program(){
+node *Program(Scanner scanner){
     node *node = createNode(PROGRAMn);
-    node-> child1 = Vars();
-    node-> child2 = Stats();
+    node-> child1 = Vars(scanner);
+    node-> child2 = Stats(scanner);
     return node;
 }
 
-node *Vars(){
+node *Vars(Scanner scanner){
     node *node = createNode(VARSn);
     if(tk.lexeme == "xdata"){
-        cout << "xdata is lexeme\n";
+        tk = scanner.getNextToken();
+        VarList(scanner);
+        return node;
     } else {
         return node;
     }
 }
 
-node *Stats(){
-    node *node = createNode(STATSn);
-    node-> child1 = Stat();
-    node-> child2 = Mstat();
+node *VarList(Scanner scanner){
+    node *node = createNode(VARLISTn);
+    if (tk.type == "IDENTIFIER"){
+        tk = scanner.getNextToken();
+        if (tk.lexeme == ":") {
+            tk = scanner.getNextToken(); 
+            if (tk.type == "INTEGER"){
+                tk = scanner.getNextToken();
+                if (tk.lexeme == ";"){
+                    tk = scanner.getNextToken();
+                    return node;
+                } else if (tk.type == "IDENTIFIER") {
+                    VarList(scanner);
+                } else {
+                    cout << "Error: Line " << tk.line << "; or ID tk expected,";
+                    cout << tk.lexeme << " token was received instead";
+                    exit(1);
+                }
+            }
+        }               
+    }
     return node;
 }
 
-node *Stat(){
+node *Stats(Scanner scanner){
+    node *node = createNode(STATSn);
+    node-> child1 = Stat(scanner);
+    node-> child2 = Mstat(scanner);
+    return node;
+}
+
+node *Stat(Scanner scanner){
     node *node = createNode(STATn);
     return node;
 }
 
-node *Mstat(){
+node *Mstat(Scanner scanner){
     node *node = createNode(MSTATn);
     return node;
 }
 
 node *parser(string input) {  
 
-    Scanner scanner(input);   
-    Scanner::Token token;
+    Scanner scanner(input);      
     tk = scanner.getNextToken();
 
     node *root;
-    root = Program();
-
+    root = Program(scanner);
 
     // DELETE
     // while(tk.type != "EOF"){
@@ -93,12 +117,5 @@ node *parser(string input) {
     }
 
     return root;
-
-    // if (tk.type == "EOF"){
-    //     return root;
-    // } else {
-    //     cout << "Error: Parsing Error\n";        
-    //     exit(1);
-    // }
 }
 
