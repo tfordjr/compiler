@@ -26,6 +26,8 @@ public:
             if (std::isspace(current_char)) {   // current character is space
                 if (current_char == '\n') {
                     line++;
+                } else if (current_char == '\t'){
+                    position++;
                 }
                 position++;
                 continue;
