@@ -59,16 +59,24 @@ node *Vars(Scanner scanner){
 
 node *VarList(Scanner scanner){
     node *node = createNode(VARLISTn);
+    string buffer = "";
+
     if (tk.type == "IDENTIFIER"){
+        buffer += tk.lexeme + " ";
         tk = scanner.getNextToken();
         if (tk.lexeme == ":") {
+            buffer += tk.lexeme + " ";
             tk = scanner.getNextToken(); 
             if (tk.type == "INTEGER"){
+                buffer += tk.lexeme + " ";
                 tk = scanner.getNextToken();
                 if (tk.lexeme == ";"){
+                    buffer += tk.lexeme + " ";
                     tk = scanner.getNextToken();
+                    cout << buffer << "\n";
                     return node;
                 } else if (tk.type == "IDENTIFIER") {
+                    cout << buffer << "\n";
                     VarList(scanner);
                 } else {
                     cout << "Error: Line " << tk.line << "; or ID tk expected,";
