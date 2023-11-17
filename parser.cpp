@@ -98,9 +98,13 @@ node *VarList(Scanner scanner){
 node *Exp(Scanner scanner){
     node *node = createNode(EXPn);
 
-    node-> child1 = M(scanner);
+    node-> child1 = M(scanner);   // Create <M> 
 
-    // If / or * next, <exp>,  else return node (no else statement)
+    if (tk.lexeme == "/" || tk.lexeme == "*"){
+        node-> tk1 = tk;
+        tk = scanner.getNextToken();
+        node-> child1 = Exp(scanner);
+    }         
 
     return node;
 }
@@ -116,14 +120,13 @@ node *M(Scanner scanner){
 node *N(Scanner scanner){
     node *node = createNode(Nn);
 
-    if (tk.lexeme == "~"){
+    if (tk.lexeme == "~"){   // ~ <N>
         node-> tk1 = tk;
         tk = scanner.getNextToken();
         node-> child1 = N(scanner);
-    } else {
-        tk = scanner.getNextToken();
-        node-> child1 = R(scanner);        
-        if (tk.lexeme == "-"){
+    } else {                // <R> - <N> || <R> case
+        node-> child1 = R(scanner); // This will advance tk, we don't need to 
+        if (tk.lexeme == "-"){    // <R> - <N> case
             node-> tk1 = tk;
             tk = scanner.getNextToken();
             node-> child1 = N(scanner); 
