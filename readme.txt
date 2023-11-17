@@ -14,3 +14,8 @@ main.cpp source code including arg checking and a while loop to return many toke
 three testing files 
 simple makefile and readme included
 
+Bug tracking: 
+Out() function has flags active, scanner.getNextToken() is run twice and not working right
+
+
+
