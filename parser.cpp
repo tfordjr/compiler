@@ -74,7 +74,7 @@ node *VarList(Scanner scanner){
                     tk = scanner.getNextToken();
                     return node;
                 } else if (tk.type == "IDENTIFIER") {
-                    VarList(scanner);
+                    node-> child1 = VarList(scanner);
                 } else {
                     cout << "Error: Line " << tk.line << "; or ID tk expected,";
                     cout << tk.lexeme << " token was received instead";
