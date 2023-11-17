@@ -142,16 +142,13 @@ node *R(Scanner scanner){
     if (tk.lexeme == "(") {        
         node-> child1 = Exp(scanner);
         if(tk.lexeme != ")")
-            errorMsg(")");
-        tk = scanner.getNextToken();
-    } else if (tk.type == "IDENTIFIER"){
-        node-> tk1 = tk;
-        tk = scanner.getNextToken();
-    } else if (tk.type == "INTEGER"){
-        node-> tk1 = tk;
-        tk = scanner.getNextToken();
-    }
+            errorMsg(")");        
+    } else if (tk.type != "IDENTIFIER" && tk.type != "INTEGER")
+        errorMsg("IDENTIFIER OR INTEGER");
+    else
+        node->tk1 = tk;
 
+    tk = scanner.getNextToken();  
     return node;
 }
 
