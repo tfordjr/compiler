@@ -66,17 +66,17 @@ node *VarList(Scanner scanner){
     node-> tk1 = tk;
     tk = scanner.getNextToken();
 
-    if (tk.lexeme == ":") 
+    if (tk.lexeme != ":") 
         errorMsg("COLON");
     node-> tk2 = tk;
     tk = scanner.getNextToken(); 
     
-    if (tk.type == "INTEGER")
+    if (tk.type != "INTEGER")
         errorMsg("INTEGER");
     node-> tk3 = tk;
     tk = scanner.getNextToken();
 
-    if (tk.lexeme == ";"){
+    if (tk.lexeme != ";"){
         node-> tk4 = tk;
         tk = scanner.getNextToken();
     } else if (tk.type == "IDENTIFIER") {
