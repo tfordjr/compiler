@@ -97,6 +97,63 @@ node *Stats(Scanner scanner){
 
 node *Stat(Scanner scanner){
     node *node = createNode(STATn);
+
+    if (tk.lexeme != "xopen")
+        errorMsg("xopen");
+    tk = scanner.getNextToken();
+
+    if (tk.lexeme == "xin") {
+        tk = scanner.getNextToken();
+        node-> child1 = Stat(scanner);
+    } else if (tk.lexeme == "xout"){
+        tk = scanner.getNextToken();
+        node-> child1 = Out(scanner);
+    } else if (tk.lexeme == "{"){
+        tk = scanner.getNextToken();
+        node-> child1 = Block(scanner);
+    } else if (tk.lexeme == "xcond"){
+        tk = scanner.getNextToken();
+        node-> child1 = If(scanner);
+    } else if (tk.lexeme == "xloop"){
+        tk = scanner.getNextToken();
+        node-> child1 = Loop(scanner);
+    } else if (tk.lexeme == "xlet"){
+        tk = scanner.getNextToken();
+        node-> child1 = Assign(scanner);
+    } else {
+        errorMsg("xin or xout or { or xcond or xloop or xlet");
+    }  
+
+    return node;
+}
+
+node *In(Scanner scanner){
+    node *node = createNode(INn);
+    return node;
+}
+
+node *Out(Scanner scanner){
+    node *node = createNode(OUTn);
+    return node;
+}
+
+node *Block(Scanner scanner){
+    node *node = createNode(BLOCKn);
+    return node;
+}
+
+node *If(Scanner scanner){
+    node *node = createNode(IFn);
+    return node;
+}
+
+node *Loop(Scanner scanner){
+    node *node = createNode(LOOPn);
+    return node;
+}
+
+node *Assign(Scanner scanner){
+    node *node = createNode(ASSIGNn);
     return node;
 }
 
@@ -111,13 +168,7 @@ node *parser(string input) {
     tk = scanner.getNextToken();
 
     node *root;
-    root = Program(scanner);
-
-    // DELETE
-    // while(tk.type != "EOF"){
-    //     tk = scanner.getNextToken();
-    // }
-    // DELETE
+    root = Program(scanner);    
 
     if (tk.type != "EOF"){
         cout << "Error: Parsing Error\n";
