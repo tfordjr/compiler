@@ -76,7 +76,7 @@ node *VarList(Scanner scanner){
     node-> tk3 = tk;
     tk = scanner.getNextToken();
 
-    if (tk.lexeme != ";"){
+    if (tk.lexeme == ";"){
         node-> tk4 = tk;
         tk = scanner.getNextToken();
     } else if (tk.type == "IDENTIFIER") {
