@@ -181,6 +181,8 @@ node *Mstat(Scanner scanner){
 
 node *parser(string input) {  
 
+    cout << input << "\n";
+
     Scanner scanner(input);      
     tk = scanner.getNextToken();
 
