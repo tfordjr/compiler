@@ -8,17 +8,7 @@
 #include "testTree.h"
 using namespace std;
 
-string tokenNames[]= {"EOFTk", "IDTk", "INTTk", "ASSIGNTk",
-	"COMPARETk", "LESSTHANEQTk", "GREATERTHANEQTk",
-	"COLONTk", "INCREMENTTk", "DECREMENTTk", "MULTIPLYTk",
-	"DIVIDETk", "MODULUSTk", "DOTTk", "LPARENTHESISTk",
-	"RPARENTHESISTk", "COMMATk",  "LBRACETk",
- 	"RBRACETk", "SEMICOLONTk", "LBRACKETTk", "RBRACKETTk",  
-	"KEYWORDTk", "ERROR", "FALSEID"
-};
-
 Scanner::Token tk;
-char c;
 
 node *Program(Scanner*);
 node *Vars(Scanner*);
@@ -327,7 +317,7 @@ node *RO(Scanner *scanner){
 }
 
 node *parser(string input) {     
-    
+
     Scanner scanner(input);      
     tk = scanner.getNextToken();
 
