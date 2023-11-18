@@ -326,10 +326,8 @@ node *RO(Scanner *scanner){
     return node;
 }
 
-node *parser(string input) {  
-
-    cout << input << '\n';
-
+node *parser(string input) {     
+    
     Scanner scanner(input);      
     tk = scanner.getNextToken();
 
