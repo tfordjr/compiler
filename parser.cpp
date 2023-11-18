@@ -314,8 +314,7 @@ node *RO(Scanner *scanner){
     
     if (tk.lexeme == "<<" || tk.lexeme == ">>"){
         node-> tk1 = tk;
-        tk = (*scanner).getNextToken();
-        node->tk2 = tk;
+        tk = (*scanner).getNextToken();        
         return node;
     } 
 
