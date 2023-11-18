@@ -78,6 +78,7 @@ public:
 		        token.line = line;
                 // return token;     // This line returns comment as token   
                 commenttk = true;
+                position++;
                 break;         
             }
 
