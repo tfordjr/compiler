@@ -6,8 +6,7 @@ enum nodeType {
 	BLOCKn, INn, OUTn, IFn, LOOPn, ASSIGNn, ROn
 };
 
-struct node
-{
+struct node {
 	nodeType label;
 	Scanner::Token tk1;
     Scanner::Token tk2;

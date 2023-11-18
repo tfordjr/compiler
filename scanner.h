@@ -15,7 +15,7 @@ public:
         int line;
     };
 
-    Token getNextToken(){
+    Token getNextToken(){        // Added this function to ignore comment tokens
         Token tk = nextToken();
         if (tk.type != "COMMENT")
             return tk;

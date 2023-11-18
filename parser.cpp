@@ -317,7 +317,6 @@ node *RO(Scanner *scanner){
 }
 
 node *parser(string input) {     
-
     Scanner scanner(input);      
     tk = scanner.getNextToken();
 

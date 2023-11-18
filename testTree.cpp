@@ -12,8 +12,7 @@ string labelNames[] = {
 };
 
 
-node * createNode(nodeType l)
-{
+node * createNode(nodeType l){     // initialize all possible tokens and children of node
 	node * root = new node;
 	root-> label = l;
 
@@ -37,10 +36,8 @@ node * createNode(nodeType l)
 }
 
 
-void traversePreorder(node *n, int depth)
-{
-	if(n)
-	{
+void traversePreorder(node *n, int depth){    // Traverse tree preorder, print nodes
+	if(n){
 		printNode(n, depth); 	
 		traversePreorder(n-> child1, depth+1); 	
 		traversePreorder(n-> child2, depth+1);	
@@ -50,36 +47,29 @@ void traversePreorder(node *n, int depth)
 }
 
 
-void printNode(node *n, int depth)
-{
+void printNode(node *n, int depth){    // Print nodes, space them out
 	string space = "";
 
-	for(int i = 0; i< depth*2; i++){
+	for(int i = 0; i< depth*2; i++)
 		space= space + " ";
-	} 
-	
+		
     cout << space << labelNames[n-> label] << ": "; 
 
-	if(n-> tk1.lexeme != ""){
+	if(n-> tk1.lexeme != "")
 		cout << n->tk1.lexeme << " ";
-	}
-
-	if(n-> tk2.lexeme != ""){
+	
+	if(n-> tk2.lexeme != "")
 		cout << n->tk2.lexeme << " ";
-	}
-
-	if(n-> tk3.lexeme != ""){
+	
+	if(n-> tk3.lexeme != "")
    	    cout << n->tk3.lexeme << " ";
-	}
-
-	if(n-> tk4.lexeme != ""){
+	
+	if(n-> tk4.lexeme != "")
 		cout << n->tk4.lexeme << " ";
-	}
-
-	if(n-> tk5.lexeme != ""){
+	
+	if(n-> tk5.lexeme != "")
 		cout << n-> tk5.lexeme << " ";
-	}	
-    
+	    
 	cout << endl;
 }
 
