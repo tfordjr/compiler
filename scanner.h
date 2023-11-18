@@ -16,7 +16,6 @@ public:
     };
 
     Token getNextToken() {
-        bool commenttk = false;
         Token token;   // init token
         char current_char;		
 
@@ -76,10 +75,7 @@ public:
                     reportError("error: scanner.cpp: comment does not close with '$'");
                 }
 		        token.line = line;
-                // return token;     // This line returns comment as token   
-                commenttk = true;
-                position++;
-                break;         
+                return token;     // This line returns comment as token                        
             }
 
             if (isOperatorChar(current_char)) {   // automatically takes operator 
@@ -108,10 +104,8 @@ public:
 		        token.line = line;
                 return token;
             }
-
-            if (!commenttk)
-                reportError("error: scanner.cpp: Unexpected character: " + current_char);
             
+            reportError("error: scanner.cpp: Unexpected character: " + current_char);            
             position++;
         }
 
