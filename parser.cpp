@@ -337,7 +337,7 @@ node *parser(string input) {
     root = Program(&scanner);    
 
     if (tk.type != "EOF"){
-        cout << "Error: Parsing Error\n";
+        errorMsg("EOF");
     }
 
     return root;
