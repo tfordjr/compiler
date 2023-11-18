@@ -50,7 +50,7 @@ int main(int argc, char* argv[]){
     //         break;
     // } while (true);
 
-    std::cout << "\nProgram:\n" << input << "\nParse Tree output: \n";
+    std::cout << "\nSource Program:\n" << input << "\nParse Tree output: \n";
     node *root = parser(input);
     traversePreorder(root, 0);
     return 0;
