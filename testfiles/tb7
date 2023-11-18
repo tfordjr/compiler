@@ -1,0 +1,5 @@
+xopen 
+  xcond [ 1 % 2 ]
+    xout << 1 ;
+xclose
+xout << 1 ;
