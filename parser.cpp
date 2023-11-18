@@ -112,7 +112,7 @@ node *Exp(Scanner *scanner){
 node *M(Scanner *scanner){
     node *node = createNode(Mn);
 
-    node-> child1 = N(scanner);
+    node-> child1 = N(scanner);  // Create <N>
 
     if (tk.lexeme == "+"){
         node-> tk1 = tk;
@@ -145,7 +145,8 @@ node *N(Scanner *scanner){
 node *R(Scanner *scanner){
     node *node = createNode(Rn);
 
-    if (tk.lexeme == "(") {        
+    if (tk.lexeme == "(") {      
+        tk = (*scanner).getNextToken();    
         node-> child1 = Exp(scanner);
         if(tk.lexeme != ")")
             errorMsg(")");        
@@ -153,8 +154,8 @@ node *R(Scanner *scanner){
         errorMsg("IDENTIFIER OR INTEGER");
     else
         node->tk1 = tk;
-
-    tk = (*scanner).getNextToken();  
+        tk = (*scanner).getNextToken();  
+    
     return node;
 }
 
@@ -346,5 +347,5 @@ node *parser(string input) {
 void errorMsg(string expected) {
     cout << "Error: Line " << tk.line << ": " << expected << " tk expected, ";
     cout << tk.lexeme << " token was received instead\n";
-    // exit(1);
+    exit(1);
 }
