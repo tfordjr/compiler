@@ -15,7 +15,14 @@ public:
         int line;
     };
 
-    Token getNextToken() {
+    Token getNextToken(){
+        Token tk = nextToken();
+        if (tk.type != "COMMENT")
+            return tk;
+        return nextToken();
+    }
+
+    Token nextToken() {
         Token token;   // init token
         char current_char;		
 
