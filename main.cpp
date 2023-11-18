@@ -40,15 +40,15 @@ int main(int argc, char* argv[]){
         }
     }      
  
-    // Scanner scanner(input);   // run this and nothing below to 
-    // Scanner::Token token;     // get only raw scanner output!
-    // std::cout << "RAW SCANNER OUTPUT: \n";
-    // do {
-    //     token = scanner.getNextToken();
-    //     std::cout << "Type: " << token.type << ", Lexeme: " << token.lexeme << " at line " << token.line << std::endl;
-    //     if (token.type == "EOF")
-    //         break;
-    // } while (true);
+    Scanner scanner(input);   // run this and nothing below to 
+    Scanner::Token token;     // get only raw scanner output!
+    std::cout << "RAW SCANNER OUTPUT: \n";
+    do {
+        token = scanner.getNextToken();
+        std::cout << "Type: " << token.type << ", Lexeme: " << token.lexeme << " at line " << token.line << std::endl;
+        if (token.type == "EOF")
+            break;
+    } while (true);
 
     std::cout << "Parse Tree output: \n";
     node *root = parser(input);
