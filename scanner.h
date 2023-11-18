@@ -82,9 +82,7 @@ public:
                     reportError("error: scanner.cpp: comment does not close with '$'");
                 }
 		        token.line = line;
-                // return token;     // This line returns comment as token            
-                position++;
-                continue;
+                return token;     // This line returns comment as token  
             }
 
             if (isOperatorChar(current_char)) {   // automatically takes operator 
