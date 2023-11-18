@@ -75,8 +75,7 @@ public:
                     reportError("error: scanner.cpp: comment does not close with '$'");
                 }
 		        token.line = line;
-                // return token;     // This line returns comment as token
-                break;         // This line ignores comments
+                return token;     // This line returns comment as token
             }
 
             if (isOperatorChar(current_char)) {   // automatically takes operator 
@@ -108,12 +107,10 @@ public:
             reportError("error: scanner.cpp: Unexpected character: " + current_char);
             position++;
         }
-
-        if (token.type != "COMMENT"){
-            token.type = "EOF";
-            token.line = line;
-            return token;
-        }            
+        
+        token.type = "EOF";
+        token.line = line;
+        return token;                 
     }
 
 private:
