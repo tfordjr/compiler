@@ -1,7 +1,5 @@
-Terry Ford Jr. - CS 4280 Scanner Project - implementation 2 - 10/15/2023
+Terry Ford Jr. - CS 4280 Compiler Project - P2 Parser - 11/18/2023
 git - https://github.com/tfordjr/scanner
-
-IMPLEMENTATION 2 - NO SPACES REQUIRED
 
 Three options for invokation:
 ./P1                                      Read from stdin (stop input with Ctrl+D)
@@ -9,13 +7,29 @@ Three options for invokation:
 ./P1 < filename(include extention)        Put file into stdin
 
 implementation: 
-scanner.cpp source code that returns a single token struct for each execution.
-main.cpp source code including arg checking and a while loop to return many tokens.
-three testing files 
+main.cpp handles file input and stdin input
+parser.cpp, parser.h handle parser function and full BNF
+scanner.h handles scanner function and token definition
+testTree.cpp, testTree.h, node.h handle node definition and tree traversal
+testing files t1-t10 are good programs, tb1-tb10 are bad programs
 simple makefile and readme included
 
-Bug tracking: 
-Out() function has flags active, scanner.getNextToken() is run twice and not working right
 
-
-
+Full BNF:
+<program>     ->      <vars> xopen <stats> xclose
+<vars>        ->      empty | xdata <varList>
+<varList>     ->      identifier : integer ; | identifier : integer <varList>
+<exp>         ->      <M> / <exp> | <M> * <exp> | <M>
+<M>           ->      <N> + <M> | <N>      
+<N>           ->       <R> - <N> | ~ <N> |  <R>
+<R>           ->      ( <exp> )  | identifier | integer
+<stats>       ->      <stat>  <mStat>
+<mStat>       ->      empty |  <stat>  <mStat>
+<stat>        ->      <in>   | <out>   | <block> | <if>  | <loop>  | <assign>
+<block>       ->      { <vars> <stats> }
+<in>          ->      xin >> identifier ;
+<out>         ->      xout << <exp> ;
+<if>          ->      xcond [ <exp> <RO> <exp> ] <stat>
+<loop>        ->      xloop [ <exp> <RO> <exp> ]  <stat>
+<assign>      ->      xlet  identifier  <exp> ;
+<RO>          ->      << (one token)  | >>  (one token)  | < | > | = | % 
