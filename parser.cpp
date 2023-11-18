@@ -103,7 +103,7 @@ node *Exp(Scanner *scanner){
     if (tk.lexeme == "/" || tk.lexeme == "*"){
         node-> tk1 = tk;
         tk = (*scanner).getNextToken();
-        node-> child1 = Exp(scanner);
+        node-> child2 = Exp(scanner);
     }         
 
     return node;
@@ -117,7 +117,7 @@ node *M(Scanner *scanner){
     if (tk.lexeme == "+"){
         node-> tk1 = tk;
         tk = (*scanner).getNextToken();
-        node-> child1 = M(scanner);
+        node-> child2 = M(scanner);
     }
 
     return node;
