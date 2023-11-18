@@ -161,11 +161,11 @@ node *Stats(Scanner *scanner){
 
 node *Mstat(Scanner *scanner){   // I think this code is good but too early to test
     node *node = createNode(MSTATn);
-    // if (tk.lexeme == "xin" || tk.lexeme == "xout" || tk.lexeme == "{" || 
-    // tk.lexeme == "xcond" || tk.lexeme == "xloop" || tk.lexeme == "xlet"){
-    //     node-> child1 = Stat(scanner);
-    //     node-> child2 = Mstat(scanner);   
-    // }
+    if (tk.lexeme == "xin" || tk.lexeme == "xout" || tk.lexeme == "{" || 
+    tk.lexeme == "xcond" || tk.lexeme == "xloop" || tk.lexeme == "xlet"){
+        node-> child1 = Stat(scanner);
+        node-> child2 = Mstat(scanner);   
+    }
     return node;
 }
 
