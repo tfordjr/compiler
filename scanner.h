@@ -78,7 +78,7 @@ public:
 		        token.line = line;
                 // return token;     // This line returns comment as token   
                 commenttk = true;
-                continue;            
+                break;         
             }
 
             if (isOperatorChar(current_char)) {   // automatically takes operator 
