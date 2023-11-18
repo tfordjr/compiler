@@ -108,10 +108,9 @@ public:
                 return token;
             }
 
-            if (commenttk)
-                continue;
-
-            reportError("error: scanner.cpp: Unexpected character: " + current_char);
+            if (!commenttk)
+                reportError("error: scanner.cpp: Unexpected character: " + current_char);
+            
             position++;
         }
 
