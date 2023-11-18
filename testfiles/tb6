@@ -1,0 +1,8 @@
+xopen 
+  xlet x1 22 ;
+  { x1 : 1
+    x2 : 2 ;
+    { xout << 1 ;
+  }
+  xout << 1 ;
+xclose

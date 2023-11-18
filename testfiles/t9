@@ -1,0 +1,4 @@
+xopen 
+  xloop [ 1 << 2 ]
+    xout << 1 ;
+xclose
