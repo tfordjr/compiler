@@ -109,9 +109,11 @@ public:
             position++;
         }
 
-        token.type = "EOF";
-        token.line = line;
-        return token;
+        if (token.type != "COMMENT"){
+            token.type = "EOF";
+            token.line = line;
+            return token;
+        }            
     }
 
 private:
