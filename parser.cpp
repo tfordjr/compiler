@@ -114,6 +114,12 @@ node *M(Scanner *scanner){
 
     node-> child1 = N(scanner);
 
+    if (tk.lexeme == "+"){
+        node-> tk1 = tk;
+        tk = (*scanner).getNextToken();
+        node-> child1 = M(scanner);
+    }
+
     return node;
 }
 
