@@ -10,7 +10,7 @@ using namespace std;
 
 Scanner::Token tk;
 
-node *Program(Scanner*);
+node *Program(Scanner*);    // One function for each BNF nonterminal
 node *Vars(Scanner*);
 node *VarList(Scanner*);
 node *Exp(Scanner*);
@@ -316,12 +316,12 @@ node *RO(Scanner *scanner){
     return node;
 }
 
-node *parser(string input) {     
+node *parser(string input) {   // main parser function that inits tree and returns root
     Scanner scanner(input);      
     tk = scanner.getNextToken();
 
     node *root;
-    root = Program(&scanner);    
+    root = Program(&scanner);    // scanner passed by reference 
 
     if (tk.type != "EOF"){
         errorMsg("EOF");
@@ -330,7 +330,7 @@ node *parser(string input) {
     return root;
 }
 
-void errorMsg(string expected) {
+void errorMsg(string expected) {    // Error Msg function, if called exec is halted
     cout << "Error: Line " << tk.line << ": " << expected << " tk expected, ";
     cout << tk.lexeme << " token was received instead\n";
     exit(1);
