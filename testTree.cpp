@@ -91,7 +91,15 @@ void staticSemantics(node *n, int depth, std::set<string> idList){
 }
 
 set<string> verifyAndInsert(Scanner::Token tk, std::set<string> idList){
-	if(tk.lexeme != "" && tk.type == "IDENTIFIER")
-		idList.insert(tk.lexeme);
+	if(tk.lexeme != "" && tk.type == "IDENTIFIER"){
+		auto it = idList.find(tk.lexeme);
+		if (it != idList.end()) {      	// Found in idList, throw detailed error msg       
+        	std::cout << "SEMANTICAL ERROR: redefinition of " << tk.lexeme;
+			std::cout << " on line " << tk.line << "\n";
+		} else {                       	// Not found in idList, add to idList		
+			idList.insert(tk.lexeme);
+		}
+	}
+		
 	return idList;
 }
