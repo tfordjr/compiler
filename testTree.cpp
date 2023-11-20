@@ -75,22 +75,22 @@ void printNode(node *n, int depth){    // Print nodes, space them out
 	cout << endl;
 }
 
-void staticSemantics(node *n, int depth, std::set<string> idList){
+void staticSemantics(node *n, int depth){
 	if(n){
-		idList = verifyAndInsert(n->tk1, idList, labelNames[n-> label]);
-		idList = verifyAndInsert(n->tk2, idList, labelNames[n-> label]);
-		idList = verifyAndInsert(n->tk3, idList, labelNames[n-> label]);
-		idList = verifyAndInsert(n->tk4, idList, labelNames[n-> label]);
-		idList = verifyAndInsert(n->tk5, idList, labelNames[n-> label]);
+		verifyAndInsert(n->tk1, labelNames[n-> label]);
+		verifyAndInsert(n->tk2, labelNames[n-> label]);
+		verifyAndInsert(n->tk3, labelNames[n-> label]);
+		verifyAndInsert(n->tk4, labelNames[n-> label]);
+		verifyAndInsert(n->tk5, labelNames[n-> label]);
 		
-		staticSemantics(n-> child1, depth+1, idList); 	
-		staticSemantics(n-> child2, depth+1, idList);	
-		staticSemantics(n-> child3, depth+1, idList);  
-		staticSemantics(n-> child4, depth+1, idList);  
+		staticSemantics(n-> child1, depth+1); 	
+		staticSemantics(n-> child2, depth+1);	
+		staticSemantics(n-> child3, depth+1);  
+		staticSemantics(n-> child4, depth+1);  
 	}
 }
 
-set<string> verifyAndInsert(Scanner::Token tk, std::set<string> idList, string label){
+void verifyAndInsert(Scanner::Token tk, string label){
 	if(tk.lexeme != "" && tk.type == "IDENTIFIER" && label == "VARLIST"){
 		auto it = idList.find(tk.lexeme);
 		if (it != idList.end()) {      	// Found in idList, throw detailed error msg       
@@ -99,7 +99,5 @@ set<string> verifyAndInsert(Scanner::Token tk, std::set<string> idList, string l
 		} else {                       	// Not found in idList, add to idList		
 			idList.insert(tk.lexeme);
 		}
-	}
-		
-	return idList;
+	}	
 }

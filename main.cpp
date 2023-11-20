@@ -55,9 +55,8 @@ int main(int argc, char* argv[]){
     std::cout << "\nSource Program:\n" << input << "\nParse Tree output: \n";
     node *root = parser(input);
     traversePreorder(root, 0);
-
-    std::set<string> idList;
-    staticSemantics(root, 0, idList);
+    
+    staticSemantics(root, 0);
 
     return 0;
 }
