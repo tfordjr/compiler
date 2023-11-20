@@ -77,11 +77,11 @@ void printNode(node *n, int depth){    // Print nodes, space them out
 
 void staticSemantics(node *n, int depth, std::set<string> idList){
 	if(n){
-		idList = verifyAndInsert(n->tk1, idList);
-		idList = verifyAndInsert(n->tk2, idList);
-		idList = verifyAndInsert(n->tk3, idList);
-		idList = verifyAndInsert(n->tk4, idList);
-		idList = verifyAndInsert(n->tk5, idList);
+		idList = verifyAndInsert(n->tk1, idList, labelNames[n-> label]);
+		idList = verifyAndInsert(n->tk2, idList, labelNames[n-> label]);
+		idList = verifyAndInsert(n->tk3, idList, labelNames[n-> label]);
+		idList = verifyAndInsert(n->tk4, idList, labelNames[n-> label]);
+		idList = verifyAndInsert(n->tk5, idList, labelNames[n-> label]);
 		
 		staticSemantics(n-> child1, depth+1, idList); 	
 		staticSemantics(n-> child2, depth+1, idList);	
@@ -90,8 +90,8 @@ void staticSemantics(node *n, int depth, std::set<string> idList){
 	}
 }
 
-set<string> verifyAndInsert(Scanner::Token tk, std::set<string> idList){
-	if(tk.lexeme != "" && tk.type == "IDENTIFIER"){
+set<string> verifyAndInsert(Scanner::Token tk, std::set<string> idList, string label){
+	if(tk.lexeme != "" && tk.type == "IDENTIFIER" && label == "VARLIST"){
 		auto it = idList.find(tk.lexeme);
 		if (it != idList.end()) {      	// Found in idList, throw detailed error msg       
         	std::cout << "SEMANTICAL ERROR: redefinition of " << tk.lexeme;
