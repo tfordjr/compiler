@@ -1,0 +1,6 @@
+x1 : 1 
+x2 : 2
+x1 : 3 ;
+xopen 
+  xout << x1 + x3 ;
+xclose
