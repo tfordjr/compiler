@@ -1,16 +1,18 @@
 #include <stdio.h>
 #include <iostream>
 #include <string>
+#include <set>
 #include "node.h"
 #include "testTree.h"
 
 using namespace std;
 
+std::set <string> idList;
+
 string labelNames[] = {
 	"PROGRAM", "VARS", "VARLIST", "EXP", "M", "N", "R", "STATS", 
 	"MSTAT", "STAT", "BLOCK", "IN", "OUT", "IF", "LOOP", "ASSIGN", "RO"
 };
-
 
 node * createNode(nodeType l){     // initialize all possible tokens and children of node
 	node * root = new node;
@@ -73,3 +75,23 @@ void printNode(node *n, int depth){    // Print nodes, space them out
 	cout << endl;
 }
 
+void staticSemantics(node *n, int depth, std::set<string> idList){
+	if(n){
+		idList = verifyAndInsert(n->tk1, idList);
+		idList = verifyAndInsert(n->tk2, idList);
+		idList = verifyAndInsert(n->tk3, idList);
+		idList = verifyAndInsert(n->tk4, idList);
+		idList = verifyAndInsert(n->tk5, idList);
+		
+		staticSemantics(n-> child1, depth+1, idList); 	
+		staticSemantics(n-> child2, depth+1, idList);	
+		staticSemantics(n-> child3, depth+1, idList);  
+		staticSemantics(n-> child4, depth+1, idList);  
+	}
+}
+
+set<string> verifyAndInsert(Scanner::Token tk, std::set<string> idList){
+	if(tk.lexeme != "" && tk.type == "IDENTIFIER")
+		idList.insert(tk.lexeme);
+	return idList;
+}

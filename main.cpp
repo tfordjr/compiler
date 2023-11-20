@@ -1,13 +1,15 @@
 #include <iostream>
 #include <string>
+#include <set>
 #include <cctype>
 #include <fstream>
+
+using namespace std;
 
 #include "scanner.h"
 #include "testTree.h"
 #include "node.h"
 #include "parser.h"
-
 
 int main(int argc, char* argv[]){
 
@@ -53,5 +55,9 @@ int main(int argc, char* argv[]){
     std::cout << "\nSource Program:\n" << input << "\nParse Tree output: \n";
     node *root = parser(input);
     traversePreorder(root, 0);
+
+    std::set<string> idList;
+    staticSemantics(root, 0, idList);
+
     return 0;
 }
