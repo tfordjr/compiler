@@ -12,7 +12,8 @@ using namespace std;
 #include "parser.h"
 
 int main(int argc, char* argv[]){
-
+    
+    std::string outfileName;
     std::ifstream inputFile;  // File Object
     std::string input;        // input buffer will hold input regardless of input method
 
@@ -26,7 +27,9 @@ int main(int argc, char* argv[]){
         while (std::getline(std::cin, line)) {
             input += line + '\n';  // store stdin in input string
         } 
+        outfileName = "outfile.asm";
     } else {
+        outfileName = std::string(argv[1]) + ".asm";
         std::string filename = std::string(argv[1]) + ".f23"; // append .f23 to filename
         inputFile.open(filename);
         if (!inputFile) {
@@ -56,6 +59,11 @@ int main(int argc, char* argv[]){
     node *root = parser(input);
     traversePreorder(root, 0);
     
+    std::ofstream outfile(outfileName);
+    if(!outfile){
+        cout << ".asm file creation failed";
+    }
+
     staticSemantics(root, 0);
 
     return 0;
