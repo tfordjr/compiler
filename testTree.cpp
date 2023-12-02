@@ -96,7 +96,7 @@ void staticSemantics(node *n, int depth){
 	}
 }
 
-void insert(Scanner::Token tk, string label){
+void insert(Scanner::Token tk, string label){ // find id declarations and insert to idlist
 	if(tk.lexeme != "" && tk.type == "IDENTIFIER" && label == "VARLIST"){
 		auto it = idList.find(tk.lexeme);
 		if (it != idList.end()) {      	// Found in idList, throw detailed error msg       
@@ -108,7 +108,7 @@ void insert(Scanner::Token tk, string label){
 	}	
 }
 
-void verify(Scanner::Token tk, string label){
+void verify(Scanner::Token tk, string label){  // verify ids are defined in idlist b4 use
 	if(tk.lexeme != "" && tk.type == "IDENTIFIER" && label != "VARLIST"){
 		auto it = idList.find(tk.lexeme);
 		if (it == idList.end()) {     // Not Found in idList, throw detailed error msg       
