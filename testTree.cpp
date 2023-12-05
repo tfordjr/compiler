@@ -146,7 +146,7 @@ static char *newName(nameType what){
 }
 
 void recGen(node *n, FILE *out){     // recursive code generation
-	char label[20], label2[20], argR[20];    // local temp or labels
+	string label, label2, argR;    // local temp or labels
 
 	if(n == NULL)
 		return;	
@@ -156,9 +156,28 @@ void recGen(node *n, FILE *out){     // recursive code generation
 			cout << "PROGRAM:\n";
 			recGen(n->child1, out);
 			recGen(n->child2, out);
-			popStack(out);
+			// popStack(out);
 			fprintf(out, "STOP\n");
 			return;
-		
+		case INn:
+			fprintf(out,"\tREAD\t%s\n",n->tk1.lexeme);
+			break;
+		case ASSIGNn:
+			recGen(n->child1,out);           /* evaluate rhs */
+			fprintf(out,"\tSTORE\t%s\n",n->tk1.lexeme);
+			break;
+		case IFn:
+			recGen(n->child3, out);              /* exprRight */
+			argR = newName(VAR);
+			recGen(n->child1, out);              /* exprLeft */
+			fprintf(out,"%SUB %s\n",argR);          /* ACC <- exprLeft - exprRight */
+			label = newName(LABEL);
+			if (n->child2->tk1.lexeme == "==") {     /* False is ACC != 0 */
+				fprintf(out,"BRNEG %s\n",label);
+				fprintf(out,"BRPOS %s\n",label);
+			}
+			recGen(n->child4, out);              /* dependent statements */
+			fprintf(out,"%s:\tNOOP\n",label);
+			break;
 	}
 }
