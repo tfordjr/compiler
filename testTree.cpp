@@ -126,13 +126,13 @@ void verify(Scanner::Token tk, string label){  // verify ids are defined in idli
 	}
 }
 
-void popStack(std::ofstream out){
+void popStack(FILE *out){
 	std::string topInstance = tkStack.top().lexeme;
 	tkStack.pop();
-
-	out << topInstance << "\n";
+	topInstance += "\n";
+	fprintf(out, topInstance.c_str());
 }
 
-void codeGeneration(node *n, std::ofstream out){
+void codeGeneration(node *n, FILE *out){
 	cout << "okay\n";
 }
