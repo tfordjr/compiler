@@ -170,7 +170,7 @@ void recGen(node *n, FILE *out){     // recursive code generation
 			recGen(n->child3, out);              /* exprRight */
 			argR = newName(VAR);
 			recGen(n->child1, out);              /* exprLeft */
-			fprintf(out,"%SUB %s\n",argR);          /* ACC <- exprLeft - exprRight */
+			fprintf(out,"SUB %s\n",argR);          /* ACC <- exprLeft - exprRight */
 			label = newName(LABEL);
 			if (n->child2->tk1.lexeme == "==") {     /* False is ACC != 0 */
 				fprintf(out,"BRNEG %s\n",label);
