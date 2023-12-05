@@ -64,7 +64,11 @@ int main(int argc, char* argv[]){
         cout << ".asm file creation failed";
     }
 
-    staticSemantics(root, 0);
+    bool semError = staticSemantics(root, 0);
+    if(semError){
+        cout << "\nsemError returned.";
+        return 0;
+    }
 
     return 0;
 }

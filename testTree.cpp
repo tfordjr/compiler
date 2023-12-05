@@ -76,7 +76,7 @@ void printNode(node *n, int depth){    // Print nodes, space them out
 	cout << endl;
 }
 
-void staticSemantics(node *n, int depth){
+bool staticSemantics(node *n, int depth){
 	if(n){
 		insert(n->tk1, labelNames[n-> label]);    // Insert variable declarations
 		insert(n->tk2, labelNames[n-> label]);
@@ -88,14 +88,14 @@ void staticSemantics(node *n, int depth){
 		verify(n->tk2, labelNames[n-> label]);
 		verify(n->tk3, labelNames[n-> label]);
 		verify(n->tk4, labelNames[n-> label]);
-		verify(n->tk5, labelNames[n-> label]);
+		verify(n->tk5, labelNames[n-> label]);		
 		
-		if (!semError){
-			staticSemantics(n-> child1, depth+1); 	  // Recursive Preorder traversal
-			staticSemantics(n-> child2, depth+1);	
-			staticSemantics(n-> child3, depth+1);  
-			staticSemantics(n-> child4, depth+1);  
-		}
+		staticSemantics(n-> child1, depth+1); 	  // Recursive Preorder traversal
+		staticSemantics(n-> child2, depth+1);	
+		staticSemantics(n-> child3, depth+1);  
+		staticSemantics(n-> child4, depth+1);  
+		
+		return semError;
 	}
 }
 
