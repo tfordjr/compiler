@@ -11,7 +11,11 @@ using namespace std;
 
 std::set <string> idList;    // variable declaration
 bool semError = 0;
-std::stack<Scanner::Token> tkStack; 
+std::stack<Scanner::Token> tkStack;    // tk stack
+static int LabelCntr = 0;      // unique labels generated
+static int VarCntr = 0;        // unique temporaries generated 
+static char Name[20];         // for creation of unique names
+
 
 string labelNames[] = {
 	"PROGRAM", "VARS", "VARLIST", "EXP", "M", "N", "R", "STATS", 
@@ -133,6 +137,28 @@ void popStack(FILE *out){
 	fprintf(out, topInstance.c_str());
 }
 
-void codeGeneration(node *n, FILE *out){
-	cout << "okay\n";
+static char *newName(nameType what){
+	if (what==VAR) // creating new temporary
+		sprintf(Name,"T%d",VarCntr++); /* generate a new label as T0, T1, etc */
+	else // creating new Label
+		sprintf(Name,"L%d",LabelCntr++); /* new lables as L0, L1, etc */
+	return(Name);
+}
+
+void recGen(node *n, FILE *out){     // recursive code generation
+	char label[20], label2[20], argR[20];    // local temp or labels
+
+	if(n == NULL)
+		return;	
+
+	switch(n->label){
+		case PROGRAMn:
+			cout << "PROGRAM:\n";
+			recGen(n->child1, out);
+			recGen(n->child2, out);
+			popStack(out);
+			fprintf(out, "STOP\n");
+			return;
+		
+	}
 }

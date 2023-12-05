@@ -73,7 +73,7 @@ int main(int argc, char* argv[]){
         return 0;
     }
 
-    codeGeneration(root, outFile);
+    recGen(root, outFile);
 
     fclose(outFile);
 
