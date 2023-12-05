@@ -1,7 +1,7 @@
 xdata x1 : 1 ;
 xopen 
-  cin >> x1 ;
-  xloop [ x > 1 ]
+  xin >> x1 ;
+  xloop [ x1 > 1 ]
   { xout << 1 ;
     xlet x1 x1 - 1 ;
   }
