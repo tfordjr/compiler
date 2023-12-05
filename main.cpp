@@ -56,8 +56,8 @@ int main(int argc, char* argv[]){
     // } while (true);
 
     std::cout << "\nSource Program:\n" << input << "\nParse Tree output: \n";
-    node *root = parser(input);
-    traversePreorder(root, 0);
+    node *root = parser(input);       // build parse tree, scanner happens within parser
+    traversePreorder(root, 0);        // print parse tree
     
     bool semError = staticSemantics(root, 0);      // check for static semantics
     if(semError){
