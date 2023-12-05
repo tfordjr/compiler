@@ -160,11 +160,11 @@ void recGen(node *n, FILE *out){     // recursive code generation
 			fprintf(out, "STOP\n");
 			return;
 		case INn:
-			fprintf(out,"\tREAD\t%s\n",n->tk1.lexeme);
+			fprintf(out,"\tREAD\t%s\n",n->tk1.lexeme.c_str());
 			break;
 		case ASSIGNn:
 			recGen(n->child1,out);           /* evaluate rhs */
-			fprintf(out,"\tSTORE\t%s\n",n->tk1.lexeme);
+			fprintf(out,"\tSTORE\t%s\n",n->tk1.lexeme.c_str());
 			break;
 		case IFn:
 			recGen(n->child3, out);              /* exprRight */
