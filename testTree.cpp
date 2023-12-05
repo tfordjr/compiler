@@ -170,14 +170,14 @@ void recGen(node *n, FILE *out){     // recursive code generation
 			recGen(n->child3, out);              /* exprRight */
 			argR = newName(VAR);
 			recGen(n->child1, out);              /* exprLeft */
-			fprintf(out,"SUB %s\n",argR);          /* ACC <- exprLeft - exprRight */
+			fprintf(out,"SUB %s\n",argR.c_str());          /* ACC <- exprLeft - exprRight */
 			label = newName(LABEL);
 			if (n->child2->tk1.lexeme == "==") {     /* False is ACC != 0 */
-				fprintf(out,"BRNEG %s\n",label);
-				fprintf(out,"BRPOS %s\n",label);
+				fprintf(out,"BRNEG %s\n",label.c_str());
+				fprintf(out,"BRPOS %s\n",label.c_str());
 			}
 			recGen(n->child4, out);              /* dependent statements */
-			fprintf(out,"%s:\tNOOP\n",label);
+			fprintf(out,"%s:\tNOOP\n",label.c_str());
 			break;
 	}
 }
