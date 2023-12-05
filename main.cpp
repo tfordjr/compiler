@@ -59,15 +59,15 @@ int main(int argc, char* argv[]){
     node *root = parser(input);
     traversePreorder(root, 0);
     
-    std::ofstream outfile(outfileName);
-    if(!outfile){
-        cout << ".asm file creation failed";
+    bool semError = staticSemantics(root, 0);      // check for static semantics
+    if(semError){
+        cout << "semError returned.\n";       // end execution if semantic errors
+        return 0;
     }
 
-    bool semError = staticSemantics(root, 0);
-    if(semError){
-        cout << "\nsemError returned.\n";
-        return 0;
+    std::ofstream outfile(outfileName);     // .asm file generation
+    if(!outfile){
+        cout << ".asm file creation failed";
     }
 
     return 0;
