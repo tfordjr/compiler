@@ -68,7 +68,10 @@ int main(int argc, char* argv[]){
     std::ofstream outfile(outfileName);     // .asm file generation
     if(!outfile){
         cout << ".asm file creation failed";
+        return 0;
     }
+
+    codeGeneration(root, outfile);
 
     return 0;
 }

@@ -1,14 +1,17 @@
 #include <stdio.h>
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <set>
+#include <stack>
 #include "node.h"
 #include "testTree.h"
 
 using namespace std;
 
-std::set <string> idList;
+std::set <string> idList;    // variable declaration
 bool semError = 0;
+std::stack<Scanner::Token> tkStack; 
 
 string labelNames[] = {
 	"PROGRAM", "VARS", "VARLIST", "EXP", "M", "N", "R", "STATS", 
@@ -121,4 +124,15 @@ void verify(Scanner::Token tk, string label){  // verify ids are defined in idli
 			semError = 1;
 		}
 	}
+}
+
+void popStack(std::ofstream out){
+	std::string topInstance = tkStack.top().lexeme;
+	tkStack.pop();
+
+	out << topInstance << "\n";
+}
+
+void codeGeneration(node *n, std::ofstream out){
+	cout << "okay\n";
 }
