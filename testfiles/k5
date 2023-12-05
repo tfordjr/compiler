@@ -1,0 +1,7 @@
+xdata x1 : 1 ;
+xopen 
+  cin >> x1 ;
+  xcond [ x1 >> 13 ]
+    xcond [ x1 << 19 ]
+      xout << 1 ;
+xclose

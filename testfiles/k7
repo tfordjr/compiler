@@ -1,0 +1,13 @@
+xdata x1 : 1 
+      x2 : 2 ;
+xopen 
+  cin >> x1 ;
+  xloop [ x1 > 0 ]
+  { xlet x2 x1 ;
+    xloop [ x2 > 0 ]
+    { xout << x2 ;
+      xlet x2 x2 - 1 ;
+    }
+    xlet x1 x1 - 2 ;
+  }
+xclose

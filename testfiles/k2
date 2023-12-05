@@ -1,0 +1,6 @@
+xopen
+	xin >> x1 ;
+	{ xdata x1 : 1 ;
+	xout << 1 ;
+	}
+xclose

@@ -1,0 +1,6 @@
+xdata x1 : 1 ;
+xopen 
+  cin >> x1 ;
+  xcond [ x > 1 ]
+    xout << 1 ;
+xclose
