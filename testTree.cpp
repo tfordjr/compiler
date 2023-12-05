@@ -8,6 +8,7 @@
 using namespace std;
 
 std::set <string> idList;
+bool semError = 0;
 
 string labelNames[] = {
 	"PROGRAM", "VARS", "VARLIST", "EXP", "M", "N", "R", "STATS", 
@@ -89,10 +90,12 @@ void staticSemantics(node *n, int depth){
 		verify(n->tk4, labelNames[n-> label]);
 		verify(n->tk5, labelNames[n-> label]);
 		
-		staticSemantics(n-> child1, depth+1); 	  // Recursive Preorder traversal
-		staticSemantics(n-> child2, depth+1);	
-		staticSemantics(n-> child3, depth+1);  
-		staticSemantics(n-> child4, depth+1);  
+		if (!semError){
+			staticSemantics(n-> child1, depth+1); 	  // Recursive Preorder traversal
+			staticSemantics(n-> child2, depth+1);	
+			staticSemantics(n-> child3, depth+1);  
+			staticSemantics(n-> child4, depth+1);  
+		}
 	}
 }
 
@@ -102,6 +105,7 @@ void insert(Scanner::Token tk, string label){ // find id declarations and insert
 		if (it != idList.end()) {      	// Found in idList, throw detailed error msg       
         	std::cout << "SEMANTICAL ERROR: redefinition of " << tk.lexeme;
 			std::cout << " on line " << tk.line << "\n";
+			semError = 1;
 		} else {                       	// Not found in idList, add to idList		
 			idList.insert(tk.lexeme);
 		}
@@ -114,6 +118,7 @@ void verify(Scanner::Token tk, string label){  // verify ids are defined in idli
 		if (it == idList.end()) {     // Not Found in idList, throw detailed error msg       
         	std::cout << "SEMANTICAL ERROR: use without delcaration: " << tk.lexeme;
 			std::cout << " on line " << tk.line << "\n";
+			semError = 1;
 		}
 	}
 }
