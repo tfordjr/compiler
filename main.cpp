@@ -66,7 +66,7 @@ int main(int argc, char* argv[]){
 
     bool semError = staticSemantics(root, 0);
     if(semError){
-        cout << "\nsemError returned.";
+        cout << "\nsemError returned.\n";
         return 0;
     }
 
