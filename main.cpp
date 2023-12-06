@@ -71,13 +71,13 @@ int main(int argc, char* argv[]){
         return 0;
     }
     recGen(root, outFile);          // recursive asm code generation from tree
-    // fclose(outFile);        // close file
+    fclose(outFile);        // close file
 
-    // outFile = fopen(outfileName.c_str(), "r");      // reopen file for reading
-    // if (!outFile) {
-    //     std::cout << "Failed to reopen file for reading" << std::endl;
-    //     return 1;
-    // }
+    outFile = fopen(outfileName.c_str(), "r");      // reopen file for reading
+    if (!outFile) {
+        std::cout << "Failed to reopen file for reading" << std::endl;
+        return 1;
+    }
 
     int character;
     while ((character = fgetc(outFile)) != EOF)     // print file contents
