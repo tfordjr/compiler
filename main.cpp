@@ -73,9 +73,12 @@ int main(int argc, char* argv[]){
         return 0;
     }
 
-    recGen(root, outFile);
+    recGen(root, outFile);          // recursive asm code generation from tree
 
-    fclose(outFile);
+    int character;
+    while ((character = fgetc(outFile)) != EOF)     // print file contents
+        putchar(character);    
 
+    fclose(outFile);        // close file
     return 0;
 }
