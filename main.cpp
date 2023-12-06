@@ -65,7 +65,7 @@ int main(int argc, char* argv[]){
         return 0;
     }
 
-    FILE *outFile = fopen(outfileName.c_str(), "rw");  // open file for asm code generation 
+    FILE *outFile = fopen(outfileName.c_str(), "w");  // open file for asm code generation 
     if(!outFile){
         cout << ".asm file creation failed";
         return 0;
