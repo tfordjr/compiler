@@ -59,33 +59,29 @@ int main(int argc, char* argv[]){
     node *root = parser(input);       // build parse tree, scanner happens within parser
     traversePreorder(root, 0);        // print parse tree
     
-    bool semError = staticSemantics(root, 0);      // check for static semantics
+    bool semError = staticSemantics(root, 0);      // check static semantics
     if(semError){
         cout << "semError returned.\n";       // end execution if semantic errors
         return 0;
     }
 
-
-    FILE *outFile = fopen(outfileName.c_str(), "w");     // .asm file generation
-    // std::ofstream outFile(outfileName);     
+    FILE *outFile = fopen(outfileName.c_str(), "rw");  // open file for asm code generation 
     if(!outFile){
         cout << ".asm file creation failed";
         return 0;
     }
-
     recGen(root, outFile);          // recursive asm code generation from tree
-    fclose(outFile);        // close file
+    // fclose(outFile);        // close file
 
-    outFile = fopen(outfileName.c_str(), "r");      // reopen file for reading
-    if (!outFile) {
-        std::cout << "Failed to reopen file for reading" << std::endl;
-        return 1;
-    }
+    // outFile = fopen(outfileName.c_str(), "r");      // reopen file for reading
+    // if (!outFile) {
+    //     std::cout << "Failed to reopen file for reading" << std::endl;
+    //     return 1;
+    // }
 
     int character;
     while ((character = fgetc(outFile)) != EOF)     // print file contents
         putchar(character);    
-
     fclose(outFile);        // close file
     return 0;
 }
