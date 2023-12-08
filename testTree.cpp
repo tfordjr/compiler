@@ -200,15 +200,22 @@ void recGen(node *n, FILE *out){     // recursive code generation
 		case IFn:
 			recGen(n->child3, out);              /* exprRight */
 			argR = newName(VAR);
-			recGen(n->child1, out);              /* exprLeft */
+			fprintf(out,"STORE %s\n",argR.c_str()); 
+			recGen(n->child1, out);              /* exprLeft */			
 			fprintf(out,"SUB %s\n",argR.c_str());          /* ACC <- exprLeft - exprRight */
 			label = newName(LABEL);
 			if (n->child2->tk1.lexeme == "==") {     /* False is ACC != 0 */
-				fprintf(out,"BRNEG %s\n",label.c_str());
+				fprintf(out,"BRZERO %s\n",label.c_str());
+			} else if (n->child2->tk1.lexeme == "<") {     /* False is ACC != 0 */
 				fprintf(out,"BRPOS %s\n",label.c_str());
+			} else if (n->child2->tk1.lexeme == ">") {     /* False is ACC != 0 */
+				fprintf(out,"BRNEG %s\n",label.c_str());
+			} else {
+				fprintf(out,"BRPOS %s\n",label.c_str());
+				fprintf(out,"BRNEG %s\n",label.c_str());
 			}
 			recGen(n->child4, out);              /* dependent statements */
-			fprintf(out,"%s:\tNOOP\n",label.c_str());
+			fprintf(out,"%s: NOOP\n",label.c_str());
 			break;
 		case LOOPn:
 			recGen(n->child1, out);
