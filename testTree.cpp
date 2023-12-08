@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <iostream>
+#include <cstdio>
 #include <fstream>
 #include <string>
 #include <set>
@@ -154,18 +155,27 @@ void recGen(node *n, FILE *out){     // recursive code generation
 	switch(n->label){
 		case PROGRAMn:
 			cout << "\nASM OUTPUT:\n";
-			recGen(n->child1, out);
-			recGen(n->child2, out);
-			// popStack(out);
 			fprintf(out, "STOP\n");
+			recGen(n->child1, out);
+
+			fseek(out, 0, SEEK_SET);
+
+			recGen(n->child2, out);
+			// popStack(out);			
 			return;
 		case VARSn:
 			recGen(n->child1, out);
 			break;
-		case VARLISTn:
-			recGen(n->child1, out);
+		case VARLISTn:			
 			fprintf(out,"%s %s\n",n->tk1.lexeme.c_str(), n->tk3.lexeme.c_str());
+			if(n->child1 == NULL){
+				fseek(out, 0, SEEK_SET);
+			}
+			recGen(n->child1, out);
 			break;		
+		case STATSn:
+			fprintf(out,"STATS\n");
+			break;
 		case INn:
 			fprintf(out,"READ %s\n",n->tk1.lexeme.c_str());
 			break;
