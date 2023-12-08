@@ -196,24 +196,24 @@ void recGen(node *n, FILE *out){     // recursive code generation
 			label = newName(LABEL);
 			recGen(n->child1, out);
 			fprintf(out,"\nSTORE %s",label.c_str());
-			fprintf(out,"\nWRITE %s\n",label.c_str());
+			fprintf(out,"\nWRITE %s",label.c_str());
 			break;			
 		case IFn:
 			recGen(n->child3, out);              /* exprRight */
 			argR = newName(VAR);
-			fprintf(out,"STORE %s\n",argR.c_str()); 
+			fprintf(out,"\nSTORE %s",argR.c_str()); 
 			recGen(n->child1, out);              /* exprLeft */			
-			fprintf(out,"SUB %s\n",argR.c_str());          /* ACC <- exprLeft - exprRight */
+			fprintf(out,"\nSUB %s",argR.c_str());          /* ACC <- exprLeft - exprRight */
 			label = newName(LABEL);
 			if (n->child2->tk1.lexeme == "==") {     /* False is ACC != 0 */
-				fprintf(out,"BRZERO %s\n",label.c_str());
+				fprintf(out,"\nBRZERO %s",label.c_str());
 			} else if (n->child2->tk1.lexeme == "<") {     /* False is ACC != 0 */
-				fprintf(out,"BRPOS %s\n",label.c_str());
+				fprintf(out,"\nBRPOS %s",label.c_str());
 			} else if (n->child2->tk1.lexeme == ">") {     /* False is ACC != 0 */
-				fprintf(out,"BRNEG %s\n",label.c_str());
+				fprintf(out,"\nBRNEG %s",label.c_str());
 			} else {
-				fprintf(out,"BRPOS %s\n",label.c_str());
-				fprintf(out,"BRNEG %s\n",label.c_str());
+				fprintf(out,"\nBRPOS %s",label.c_str());
+				fprintf(out,"\nBRNEG %s",label.c_str());
 			}
 			recGen(n->child4, out);              /* dependent statements */
 			fprintf(out,"%s: NOOP\n",label.c_str());
