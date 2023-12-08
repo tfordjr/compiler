@@ -158,16 +158,33 @@ void recGen(node *n, FILE *out){     // recursive code generation
 			recGen(n->child1, out);		
 			fprintf(out,"%s %s\n",n->tk1.lexeme.c_str(), n->tk3.lexeme.c_str());			
 			break;		
+		case EXPn:
+			break;
+		case Mn:
+			break;
+		case Nn:
+			break;
+		case Rn:
+			fprintf(out,"%s",n->tk1.lexeme.c_str());
+			break;
 		case STATSn:
 			recGen(n->child1, out);
+			recGen(n->child2, out);
+			break;
+		case MSTATn:
+			recGen(n->child1, out);
+			recGen(n->child2, out);
+			break;
+		case STATn:
+			recGen(n->child1, out);
+			break;
+		case BLOCKn:
 			break;
 		case INn:
 			fprintf(out,"READ %s\n",n->tk1.lexeme.c_str());
 			break;
-		case ASSIGNn:
-			recGen(n->child1,out);           /* evaluate rhs */
-			fprintf(out,"STORE %s\n",n->tk1.lexeme.c_str());
-			break;		
+		case OUTn:
+			break;			
 		case IFn:
 			recGen(n->child3, out);              /* exprRight */
 			argR = newName(VAR);
@@ -180,6 +197,16 @@ void recGen(node *n, FILE *out){     // recursive code generation
 			}
 			recGen(n->child4, out);              /* dependent statements */
 			fprintf(out,"%s:\tNOOP\n",label.c_str());
+			break;
+		case LOOPn:
+			break;
+		case ASSIGNn:
+			fprintf(out,"LOAD ");
+			recGen(n->child1,out);           /* evaluate rhs */
+			fprintf(out,"\nSTORE %s\n",n->tk1.lexeme.c_str());
+			break;	
+		case ROn:
+			fprintf(out," %s ",n->tk1.lexeme.c_str());
 			break;
 	}
 }
