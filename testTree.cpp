@@ -206,7 +206,7 @@ void recGen(node *n, FILE *out){     // recursive code generation
 		case OUTn:
 			argR = newName(VAR);
 			recGen(n->child1, out);
-			fprintf(out,"\nSTORE %s",argR.c_str());
+			fprintf(out,"STORE %s",argR.c_str());
 			fprintf(out,"\nWRITE %s",argR.c_str());
 			break;			
 		case IFn:
