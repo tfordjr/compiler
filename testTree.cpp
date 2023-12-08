@@ -196,10 +196,10 @@ void recGen(node *n, FILE *out){     // recursive code generation
 			fprintf(out,"READ %s\n",n->tk1.lexeme.c_str());
 			break;
 		case OUTn:
-			label = newName(LABEL);
+			argR = newName(LABEL);
 			recGen(n->child1, out);
-			fprintf(out,"\nSTORE %s",label.c_str());
-			fprintf(out,"\nWRITE %s",label.c_str());
+			fprintf(out,"\nSTORE %s",argR.c_str());
+			fprintf(out,"\nWRITE %s",argR.c_str());
 			break;			
 		case IFn:
 			recGen(n->child3, out);              /* exprRight */
