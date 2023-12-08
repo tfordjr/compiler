@@ -148,7 +148,7 @@ void recGen(node *n, FILE *out){     // recursive code generation
 		case PROGRAMn:
 			cout << "\nASM OUTPUT:\n";			
 			recGen(n->child2, out);
-			fprintf(out, "STOP\n");	
+			fprintf(out, "\nSTOP\n");	
 			recGen(n->child1, out);	
 			for (int i = 0; i < VarCntr; i++){
 				fprintf(out,"T%d 0\n", i);
