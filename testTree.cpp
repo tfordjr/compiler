@@ -216,7 +216,7 @@ void recGen(node *n, FILE *out){     // recursive code generation
 				fprintf(out,"\nBRNEG %s",label.c_str());
 			}
 			recGen(n->child4, out);              /* dependent statements */
-			fprintf(out,"%s: NOOP\n",label.c_str());
+			fprintf(out,"\n%s: NOOP\n",label.c_str());
 			break;
 		case LOOPn:
 			recGen(n->child1, out);
