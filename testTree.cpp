@@ -156,25 +156,19 @@ void recGen(node *n, FILE *out){     // recursive code generation
 		case PROGRAMn:
 			cout << "\nASM OUTPUT:\n";
 			fprintf(out, "STOP\n");
-			recGen(n->child1, out);
-
-			fseek(out, 0, SEEK_SET);
-
 			recGen(n->child2, out);
+			recGen(n->child1, out);
 			// popStack(out);			
 			return;
 		case VARSn:
 			recGen(n->child1, out);
 			break;
-		case VARLISTn:			
-			fprintf(out,"%s %s\n",n->tk1.lexeme.c_str(), n->tk3.lexeme.c_str());
-			if(n->child1 == NULL){
-				fseek(out, 0, SEEK_SET);
-			}
-			recGen(n->child1, out);
+		case VARLISTn:	
+			recGen(n->child1, out);		
+			fprintf(out,"%s %s\n",n->tk1.lexeme.c_str(), n->tk3.lexeme.c_str());			
 			break;		
 		case STATSn:
-			// fprintf(out,"STATS\n");
+			fprintf(out,"STATS\n");
 			break;
 		case INn:
 			fprintf(out,"READ %s\n",n->tk1.lexeme.c_str());
