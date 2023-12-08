@@ -174,7 +174,7 @@ void recGen(node *n, FILE *out){     // recursive code generation
 			recGen(n->child1, out);
 			break;		
 		case STATSn:
-			fprintf(out,"STATS\n");
+			// fprintf(out,"STATS\n");
 			break;
 		case INn:
 			fprintf(out,"READ %s\n",n->tk1.lexeme.c_str());
