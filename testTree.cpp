@@ -12,7 +12,6 @@ using namespace std;
 
 std::set <string> idList;    // variable declaration
 bool semError = 0;
-std::stack<Scanner::Token> tkStack;    // tk stack
 static int LabelCntr = 0;      // unique labels generated
 static int VarCntr = 0;        // unique temporaries generated 
 static char Name[20];         // for creation of unique names
@@ -131,13 +130,6 @@ void verify(Scanner::Token tk, string label){  // verify ids are defined in idli
 	}
 }
 
-void popStack(FILE *out){
-	std::string topInstance = tkStack.top().lexeme;
-	tkStack.pop();
-	topInstance += "\n";
-	fprintf(out, topInstance.c_str());
-}
-
 static char *newName(nameType what){
 	if (what==VAR) // creating new temporary
 		sprintf(Name,"T%d",VarCntr++); /* generate a new label as T0, T1, etc */
@@ -167,7 +159,7 @@ void recGen(node *n, FILE *out){     // recursive code generation
 			fprintf(out,"%s %s\n",n->tk1.lexeme.c_str(), n->tk3.lexeme.c_str());			
 			break;		
 		case STATSn:
-			fprintf(out,"STATS\n");
+			recGen(n->child1, out);
 			break;
 		case INn:
 			fprintf(out,"READ %s\n",n->tk1.lexeme.c_str());

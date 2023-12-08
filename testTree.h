@@ -13,7 +13,6 @@ void printNode(node *n, int depth);
 bool staticSemantics(node *n, int depth);
 void insert(Scanner::Token tk, string label);
 void verify(Scanner::Token tk, string label);
-void popStack(FILE *out);
 static char *newName(nameType what);
 void recGen(node *n, FILE *out);
 
