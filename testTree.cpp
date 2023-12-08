@@ -154,11 +154,10 @@ void recGen(node *n, FILE *out){     // recursive code generation
 
 	switch(n->label){
 		case PROGRAMn:
-			cout << "\nASM OUTPUT:\n";
-			fprintf(out, "STOP\n");
+			cout << "\nASM OUTPUT:\n";			
 			recGen(n->child2, out);
 			recGen(n->child1, out);
-			// popStack(out);			
+			fprintf(out, "STOP\n");	
 			return;
 		case VARSn:
 			recGen(n->child1, out);
