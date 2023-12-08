@@ -159,13 +159,18 @@ void recGen(node *n, FILE *out){     // recursive code generation
 			// popStack(out);
 			fprintf(out, "STOP\n");
 			return;
+		case VARSn:
+			break;
+		case VARLISTn:
+			fprintf(out,"%s %s\n",n->tk1.lexeme.c_str(), n->tk3.lexeme.c_str());
+			break;		
 		case INn:
-			fprintf(out,"\tREAD\t%s\n",n->tk1.lexeme.c_str());
+			fprintf(out,"READ %s\n",n->tk1.lexeme.c_str());
 			break;
 		case ASSIGNn:
 			recGen(n->child1,out);           /* evaluate rhs */
-			fprintf(out,"\tSTORE\t%s\n",n->tk1.lexeme.c_str());
-			break;
+			fprintf(out,"STORE %s\n",n->tk1.lexeme.c_str());
+			break;		
 		case IFn:
 			recGen(n->child3, out);              /* exprRight */
 			argR = newName(VAR);
