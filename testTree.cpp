@@ -160,13 +160,14 @@ void recGen(node *n, FILE *out){     // recursive code generation
 			fprintf(out, "STOP\n");
 			return;
 		case VARSn:
+			recGen(n->child1, out);
 			break;
 		case VARLISTn:
+			recGen(n->child1, out);
 			fprintf(out,"%s %s\n",n->tk1.lexeme.c_str(), n->tk3.lexeme.c_str());
 			break;		
 		case INn:
 			fprintf(out,"READ %s\n",n->tk1.lexeme.c_str());
-			cout << n->tk1.lexeme << endl;
 			break;
 		case ASSIGNn:
 			recGen(n->child1,out);           /* evaluate rhs */
