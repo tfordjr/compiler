@@ -215,7 +215,7 @@ void recGen(node *n, FILE *out){     // recursive code generation
 			recGen(n->child4, out);
 			break;
 		case ASSIGNn:
-			fprintf(out,"LOAD ");
+			fprintf(out,"\nLOAD ");
 			recGen(n->child1,out);           /* evaluate rhs */
 			fprintf(out,"\nSTORE %s\n",n->tk1.lexeme.c_str());
 			break;	
