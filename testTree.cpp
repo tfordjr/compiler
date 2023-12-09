@@ -219,13 +219,13 @@ void recGen(node *n, FILE *out){     // recursive code generation
 			if (n->child2->tk1.lexeme == "==") {     /* False is ACC != 0 */
 				fprintf(out,"\nBRZERO %s",label.c_str());
 			} else if (n->child2->tk1.lexeme == "<") {      // < LESS THAN
-				fprintf(out,"\nBRPOS %s",label.c_str());
-			} else if (n->child2->tk1.lexeme == ">") {      // > GREATER THAN
-				fprintf(out,"\nBRNEG %s",label.c_str());
-			} else if (n->child2->tk1.lexeme == "<<") {     // << LESS THAN OR EQUAL
 				fprintf(out,"\nBRZPOS %s",label.c_str());
-			} else if (n->child2->tk1.lexeme == ">>") {    // >> GREATER THAN OR EQUAL
+			} else if (n->child2->tk1.lexeme == ">") {      // > GREATER THAN
 				fprintf(out,"\nBRZNEG %s",label.c_str());
+			} else if (n->child2->tk1.lexeme == "<<") {     // << LESS THAN OR EQUAL
+				fprintf(out,"\nBRPOS %s",label.c_str());
+			} else if (n->child2->tk1.lexeme == ">>") {    // >> GREATER THAN OR EQUAL
+				fprintf(out,"\nBRNEG %s",label.c_str());
 			} else {
 				fprintf(out,"\nBRPOS %s",label.c_str());
 				fprintf(out,"\nBRNEG %s",label.c_str());
