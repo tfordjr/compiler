@@ -214,13 +214,13 @@ void recGen(node *n, FILE *out){     // recursive code generation
 			argR = newName(VAR);
 			fprintf(out,"\nSTORE %s",argR.c_str()); 
 			recGen(n->child1, out);              /* exprLeft */			
-			fprintf(out,"\nSUB %s",argR.c_str());          /* ACC <- exprLeft - exprRight */
+			fprintf(out,"\nSUB %s",argR.c_str());     /* ACC <- exprLeft - exprRight */
 			label = newName(LABEL);
 			if (n->child2->tk1.lexeme == "==") {     /* False is ACC != 0 */
 				fprintf(out,"\nBRZERO %s",label.c_str());
-			} else if (n->child2->tk1.lexeme == "<") {     /* False is ACC != 0 */
+			} else if (n->child2->tk1.lexeme == "<" || n->child2->tk1.lexeme == "<<") {
 				fprintf(out,"\nBRZPOS %s",label.c_str());
-			} else if (n->child2->tk1.lexeme == ">") {     /* False is ACC != 0 */
+			} else if (n->child2->tk1.lexeme == ">" || n->child2->tk1.lexeme == ">>") {
 				fprintf(out,"\nBRZNEG %s",label.c_str());
 			} else {
 				fprintf(out,"\nBRPOS %s",label.c_str());
