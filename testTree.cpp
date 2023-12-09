@@ -216,7 +216,7 @@ void recGen(node *n, FILE *out){     // recursive code generation
 			recGen(n->child1, out);              /* exprLeft */			
 			fprintf(out,"\nSUB %s",argR.c_str());     /* ACC <- exprLeft - exprRight */
 			label = newName(LABEL);
-			if (n->child2->tk1.lexeme == "==") {     /* False is ACC != 0 */
+			if (n->child2->tk1.lexeme == "%") {      //  % MODULUS CASE
 				fprintf(out,"\nBRZERO %s",label.c_str());
 			} else if (n->child2->tk1.lexeme == "<") {      // < LESS THAN
 				fprintf(out,"\nBRZPOS %s",label.c_str());
@@ -226,18 +226,39 @@ void recGen(node *n, FILE *out){     // recursive code generation
 				fprintf(out,"\nBRPOS %s",label.c_str());
 			} else if (n->child2->tk1.lexeme == ">>") {    // >> GREATER THAN OR EQUAL
 				fprintf(out,"\nBRNEG %s",label.c_str());
-			} else {
-				fprintf(out,"\nBRPOS %s",label.c_str());
+			} else if (n->child2->tk1.lexeme == "=") {
+				fprintf(out,"\nBRPOS %s",label.c_str());   // = EQUALITY COMPARITOR
 				fprintf(out,"\nBRNEG %s",label.c_str());
 			}
-			recGen(n->child4, out);              /* dependent statements */
+			recGen(n->child4, out);              
 			fprintf(out,"\n%s: NOOP",label.c_str());
 			break;
 		case LOOPn:
-			recGen(n->child1, out);
-			recGen(n->child2, out);
-			recGen(n->child3, out);
-			recGen(n->child4, out);
+			argR = newName(VAR);
+			label = newName(LABEL);
+			label2 = newName(LABEL);
+			fprintf(out,"\n%s: NOOP",label.c_str());
+			recGen(n->child3, out); 
+			fprintf(out,"\nSTORE %s",argR.c_str()); 
+			recGen(n->child1, out);              /* exprLeft */			
+			fprintf(out,"\nSUB %s",argR.c_str());     /* ACC <- exprLeft - exprRight */			
+			if (n->child2->tk1.lexeme == "%") {      //  % MODULUS CASE
+				fprintf(out,"\nBRZERO %s",label.c_str());
+			} else if (n->child2->tk1.lexeme == "<") {      // < LESS THAN
+				fprintf(out,"\nBRZPOS %s",label.c_str());
+			} else if (n->child2->tk1.lexeme == ">") {      // > GREATER THAN
+				fprintf(out,"\nBRZNEG %s",label.c_str());
+			} else if (n->child2->tk1.lexeme == "<<") {     // << LESS THAN OR EQUAL
+				fprintf(out,"\nBRPOS %s",label.c_str());
+			} else if (n->child2->tk1.lexeme == ">>") {    // >> GREATER THAN OR EQUAL
+				fprintf(out,"\nBRNEG %s",label.c_str());
+			} else if (n->child2->tk1.lexeme == "=") {
+				fprintf(out,"\nBRPOS %s",label.c_str());   // = EQUALITY COMPARITOR
+				fprintf(out,"\nBRNEG %s",label.c_str());
+			}
+			recGen(n->child4, out);              
+			fprintf(out,"\nBR %s\n",label.c_str());    // LABEL NAME WRONG
+			fprintf(out,"\n%s: NOOP",label2.c_str());
 			break;
 		case ASSIGNn:
 			fprintf(out,"\nLOAD ");
