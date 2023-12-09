@@ -206,7 +206,7 @@ void recGen(node *n, FILE *out){     // recursive code generation
 		case OUTn:
 			argR = newName(VAR);
 			recGen(n->child1, out);
-			fprintf(out,"STORE %s",argR.c_str());
+			fprintf(out,"\nSTORE %s",argR.c_str());
 			fprintf(out,"\nWRITE %s",argR.c_str());
 			break;			
 		case IFn:
@@ -238,7 +238,7 @@ void recGen(node *n, FILE *out){     // recursive code generation
 		case ASSIGNn:
 			fprintf(out,"\nLOAD ");
 			recGen(n->child1,out);           /* evaluate rhs */
-			fprintf(out,"STORE %s\n",n->tk1.lexeme.c_str());
+			fprintf(out,"\nSTORE %s",n->tk1.lexeme.c_str());
 			break;	
 		case ROn:
 			recGen(n->child1, out);
