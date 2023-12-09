@@ -175,7 +175,7 @@ void recGen(node *n, FILE *out){     // recursive code generation
 			break;
 		case Rn:
 			if(n->tk1.type == "IDENTIFIER"){
-				fprintf(out,"\nSTACKR %s",n->tk1.lexeme.c_str());
+				fprintf(out,"\nSTACKR 0");
 			} else if(n->tk1.type == "INTEGER"){
 				fprintf(out,"\nLOAD %s",n->tk1.lexeme.c_str());
 			}	
@@ -261,7 +261,7 @@ void recGen(node *n, FILE *out){     // recursive code generation
 			// fprintf(out,"\nLOAD ");      
 			recGen(n->child1,out);           /* evaluate rhs */
 			// fprintf(out,"\nSTORE %s",n->tk1.lexeme.c_str());
-			fprintf(out,"\nSTACKW %s",n->tk1.lexeme.c_str());
+			fprintf(out,"\nSTACKW 0");
 			break;	
 		case ROn:
 			recGen(n->child1, out);
