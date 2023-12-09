@@ -175,9 +175,9 @@ void recGen(node *n, FILE *out){     // recursive code generation
 			break;
 		case Rn:
 			if(n->tk1.type == "IDENTIFIER"){
-				fprintf(out,"\nLOAD %s\n",n->tk1.lexeme.c_str());
+				fprintf(out,"\nLOAD %s",n->tk1.lexeme.c_str());
 			} else if(n->tk1.type == "INTEGER"){
-				fprintf(out,"\nLOAD %s\n",n->tk1.lexeme.c_str());
+				fprintf(out,"\nLOAD %s",n->tk1.lexeme.c_str());
 			}
 
 			// NOT DOING PARENTHESIS TOKENS BC THEY'RE NOT SAVED TO Rn AS IS
@@ -201,7 +201,7 @@ void recGen(node *n, FILE *out){     // recursive code generation
 			recGen(n->child2, out);
 			break;
 		case INn:
-			fprintf(out,"READ %s\n",n->tk1.lexeme.c_str());
+			fprintf(out,"READ %s",n->tk1.lexeme.c_str());
 			break;
 		case OUTn:
 			argR = newName(VAR);
@@ -227,7 +227,7 @@ void recGen(node *n, FILE *out){     // recursive code generation
 				fprintf(out,"\nBRNEG %s",label.c_str());
 			}
 			recGen(n->child4, out);              /* dependent statements */
-			fprintf(out,"\n%s: NOOP\n",label.c_str());
+			fprintf(out,"\n%s: NOOP",label.c_str());
 			break;
 		case LOOPn:
 			recGen(n->child1, out);
