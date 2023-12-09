@@ -169,17 +169,16 @@ void recGen(node *n, FILE *out){     // recursive code generation
 			recGen(n->child2, out);
 			break;
 		case Nn:
-			if(n->tk1.lexeme == "-"){
-				fprintf(out,"\nLOAD ");
-				recGen(n->child1, out);
-				fprintf(out,"\nSUB ");
-				recGen(n->child2, out);
-				fprintf(out,"\nSTACKW 0");
-			} else {
-				recGen(n->child1, out);
-				recGen(n->child2, out);
-			}
-			
+			// if(n->tk1.lexeme == "-"){
+			// 	fprintf(out,"\nLOAD ");
+			// 	recGen(n->child1, out);
+			// 	fprintf(out,"\nSUB ");
+			// 	recGen(n->child2, out);
+			// 	fprintf(out,"\nSTACKW 0");
+			// } else {				
+			// }
+			recGen(n->child1, out);
+			recGen(n->child2, out);
 			break;
 		case Rn:
 			if(n->tk1.type == "IDENTIFIER"){
@@ -265,12 +264,10 @@ void recGen(node *n, FILE *out){     // recursive code generation
 			fprintf(out,"\nBR %s\n",label.c_str());    // LABEL NAME WRONG
 			fprintf(out,"\n%s: NOOP",label2.c_str());
 			break;
-		case ASSIGNn:
-			
-			
-			// fprintf(out,"\nLOAD ");    			 
+		case ASSIGNn:	
+			fprintf(out,"\nLOAD ");    			 
 			recGen(n->child1,out);           /* evaluate rhs */
-			fprintf(out,"\nSTACKR 0"); 
+			// fprintf(out,"\nSTACKR 0"); 
 			fprintf(out,"\nSTORE %s",n->tk1.lexeme.c_str());			
 			break;	
 		case ROn:
