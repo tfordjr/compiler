@@ -125,7 +125,7 @@ node *N(Scanner *scanner){
         if (tk.lexeme == "-"){    // <R> - <N> case
             node-> tk1 = tk;
             tk = (*scanner).getNextToken();
-            node-> child1 = N(scanner); 
+            node-> child2 = N(scanner); 
         } 
     }
 
