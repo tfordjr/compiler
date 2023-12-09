@@ -175,9 +175,9 @@ void recGen(node *n, FILE *out){     // recursive code generation
 			break;
 		case Rn:
 			if(n->tk1.type == "IDENTIFIER"){
-				fprintf(out,"LOAD %s\n",n->tk1.lexeme.c_str());
+				fprintf(out,"\nLOAD %s\n",n->tk1.lexeme.c_str());
 			} else if(n->tk1.type == "INTEGER"){
-				fprintf(out,"LOAD %s\n",n->tk1.lexeme.c_str());
+				fprintf(out,"\nLOAD %s\n",n->tk1.lexeme.c_str());
 			}
 
 			// NOT DOING PARENTHESIS TOKENS BC THEY'RE NOT SAVED TO Rn AS IS
