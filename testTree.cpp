@@ -163,6 +163,21 @@ void recGen(node *n, FILE *out){     // recursive code generation
 		case EXPn:
 			recGen(n->child1, out);
 			recGen(n->child2, out);
+			if(n->tk1.lexeme == "*"){
+				argR = newName(VAR);
+				fprintf(out,"\nSTACKR 0\nPOP");         
+				fprintf(out,"\nSTORE %s", argR.c_str());     
+				fprintf(out,"\nSTACKR 0\nPOP");				 
+				fprintf(out,"\nMULT %s", argR.c_str());
+				fprintf(out,"\nPUSH\nSTACKW 0");
+			} else if(n->tk1.lexeme == "/"){
+				argR = newName(VAR);
+				fprintf(out,"\nSTACKR 0\nPOP");         
+				fprintf(out,"\nSTORE %s", argR.c_str());     
+				fprintf(out,"\nSTACKR 0\nPOP");				 
+				fprintf(out,"\nDIV %s", argR.c_str());
+				fprintf(out,"\nPUSH\nSTACKW 0");
+			} 
 			break;
 		case Mn:
 			recGen(n->child1, out);
