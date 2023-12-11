@@ -295,10 +295,7 @@ void recGen(node *n, FILE *out){     // recursive code generation
 			fprintf(out,"\nBR %s\n",label.c_str());    // LABEL NAME WRONG
 			fprintf(out,"\n%s: NOOP",label2.c_str());
 			break;
-		case ASSIGNn:
-			// fprintf(out,"\nSTACKW 0"); 
-			
-			// fprintf(out,"\nLOAD ");    			 
+		case ASSIGNn:			 
 			recGen(n->child1,out);           /* evaluate rhs */
 			fprintf(out, "\nSTACKR 0");
 			fprintf(out,"\nSTORE %s",n->tk1.lexeme.c_str());			
