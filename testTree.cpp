@@ -186,6 +186,10 @@ void recGen(node *n, FILE *out){     // recursive code generation
 				fprintf(out,"\nSTACKR 0\nPOP");				 
 				fprintf(out,"\nSUB %s", argR.c_str());
 				fprintf(out,"\nPUSH\nSTACKW 0");
+			} else if (n->tk1.lexeme == "~"){
+				fprintf(out,"\nSTACKR 0\nPOP"); 
+				fprintf(out,"\nMULT -1"); 
+				fprintf(out,"\nPUSH\nSTACKW 0");
 			}
 			break;
 		case Rn:
