@@ -174,8 +174,7 @@ void recGen(node *n, FILE *out){     // recursive code generation
 				fprintf(out,"\nSTACKR 0\nPOP");				
 				fprintf(out,"\nADD %d", tempVar.c_str());
 				fprintf(out,"\nPUSH\nSTACKW 0");
-			} else 
-				cout << "\nMn NOT WORKING RIGHT + tk NOT RECOGNIZED";
+			}
 			break;
 		case Nn:
 			recGen(n->child1, out);
