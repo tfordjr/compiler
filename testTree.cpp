@@ -170,9 +170,9 @@ void recGen(node *n, FILE *out){     // recursive code generation
 			if(n->tk1.lexeme == "+"){
 				argR = newName(VAR);
 				fprintf(out,"\nSTACKR 0\nPOP");         
-				fprintf(out,"\nSTORE %d", argR.c_str());     
+				fprintf(out,"\nSTORE %s", argR.c_str());     
 				fprintf(out,"\nSTACKR 0\nPOP");				 
-				fprintf(out,"\nADD %d", argR.c_str());
+				fprintf(out,"\nADD %s", argR.c_str());
 				fprintf(out,"\nPUSH\nSTACKW 0");
 			}
 			break;
