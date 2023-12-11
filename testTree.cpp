@@ -167,6 +167,14 @@ void recGen(node *n, FILE *out){     // recursive code generation
 		case Mn:
 			recGen(n->child1, out);
 			recGen(n->child2, out);
+			if(n->tk1.lexeme == "+"){
+				string tempVar = newName(VAR);
+				fprintf(out,"\nSTACKR 0\nPOP");
+				fprintf(out,"\nSTORE %d", tempVar.c_str());
+				fprintf(out,"\nSTACKR 0\nPOP");				
+				fprintf(out,"\nADD %d", tempVar.c_str());
+				fprintf(out,"\nPUSH\nSTACKW 0");
+			}
 			break;
 		case Nn:
 			recGen(n->child1, out);
@@ -175,12 +183,10 @@ void recGen(node *n, FILE *out){     // recursive code generation
 		case Rn:
 			if(n->tk1.type == "IDENTIFIER"){
 				fprintf(out,"\nLOAD %s",n->tk1.lexeme.c_str());
-				fprintf(out,"\nPUSH");
-				fprintf(out,"\nSTACKW 0");
+				fprintf(out,"\nPUSH\nSTACKW 0");
 			} else if(n->tk1.type == "INTEGER"){
 				fprintf(out,"\nLOAD %s",n->tk1.lexeme.c_str());
-				fprintf(out,"\nPUSH");
-				fprintf(out,"\nSTACKW 0");
+				fprintf(out,"\nPUSH\nSTACKW 0");				
 			}	
 
 			recGen(n->child1, out);   // (<exp>) case, child1 is null except for this case
