@@ -29,16 +29,18 @@ int main(int argc, char* argv[]){
         } 
         outfileName = "a.asm";
     } else {
-        outfileName = std::string(argv[1]) + ".asm";
+        // outfileName = std::string(argv[1]) + ".asm";
         std::string filename = std::string(argv[1]) + ".f23"; // append .f23 to filename
         inputFile.open(filename);
         if (!inputFile) {
             std::cerr << "Can't open file..." << std::endl;  // error checking file
             return 1;
         } else {
-            std::cout << "File opened successfully!" << std::endl;          
-	    std:: string line;       
+            std::cout << "File opened successfully!" << std::endl;    
 
+            outfileName = std::string(argv[1]) + ".asm";
+
+	        std:: string line;       
             while (std::getline(inputFile, line)) {
                 input += line + '\n';   // Store input file in input string
             }     
