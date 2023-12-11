@@ -27,19 +27,16 @@ int main(int argc, char* argv[]){
         while (std::getline(std::cin, line)) {
             input += line + '\n';  // store stdin in input string
         } 
-        outfileName = "a.asm";
+        outfileName = "a.asm";     // if no input file, outfile name defaults to a.asm
     } else {
-        outfileName = std::string(argv[1]) + ".asm";
-        std::cout << outfileName;
+        outfileName = std::string(argv[1]) + ".asm";   // name outfile after input file
         std::string filename = std::string(argv[1]) + ".f23"; // append .f23 to filename
         inputFile.open(filename);
         if (!inputFile) {
             std::cerr << "Can't open file..." << std::endl;  // error checking file
             return 1;
         } else {
-            std::cout << "File opened successfully!" << std::endl;    
-
-            // outfileName = std::string(argv[1]) + ".asm";
+            std::cout << "File opened successfully!" << std::endl;  
 
 	        std:: string line;       
             while (std::getline(inputFile, line)) {

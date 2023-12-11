@@ -7,3 +7,4 @@ make:
 
 clean: 
 	rm -f comp
+	rm -f *.asm
