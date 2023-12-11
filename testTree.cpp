@@ -139,7 +139,7 @@ static char *newName(nameType what){
 }
 
 void recGen(node *n, FILE *out){     // recursive code generation
-	string label, label2, argR;    // local temp or labels
+	string label, label2, argR, Mvar;    // local temp or labels
 
 	if(n == NULL)
 		return;	
@@ -168,11 +168,11 @@ void recGen(node *n, FILE *out){     // recursive code generation
 			recGen(n->child1, out);
 			recGen(n->child2, out);
 			if(n->tk1.lexeme == "+"){
-				string tempVar = newName(VAR);
+				Mvar = newName(VAR);
 				fprintf(out,"\nSTACKR 0\nPOP");
-				fprintf(out,"\nSTORE %d", tempVar.c_str());
+				fprintf(out,"\nSTORE %d", Mvar.c_str());
 				fprintf(out,"\nSTACKR 0\nPOP");				
-				fprintf(out,"\nADD %d", tempVar.c_str());
+				fprintf(out,"\nADD %d", Mvar.c_str());
 				fprintf(out,"\nPUSH\nSTACKW 0");
 			}
 			break;
