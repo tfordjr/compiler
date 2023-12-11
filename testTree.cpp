@@ -270,30 +270,30 @@ void recGen(node *n, FILE *out){     // recursive code generation
 			break;
 		case LOOPn:
 			argR = newName(VAR);
-			label = newName(LABEL);
-			label2 = newName(LABEL);
-			fprintf(out,"\n%s: NOOP",label.c_str());
-			recGen(n->child3, out); 
-			fprintf(out,"\nSTORE %s",argR.c_str()); 
-			recGen(n->child1, out);              /* exprLeft */			
+			label = newName(LABEL);      // label will be loop 'start' label
+			label2 = newName(LABEL);     // label2 will be loop 'out' label
+			fprintf(out,"\n%s: NOOP",label.c_str());    // LOOP START LABEL
+			recGen(n->child3, out);               // RHS Expr
+			fprintf(out,"\nSTORE %s",argR.c_str());
+			recGen(n->child1, out);              // LHS Expr			
 			fprintf(out,"\nSUB %s",argR.c_str());     /* ACC <- exprLeft - exprRight */			
-			if (n->child2->tk1.lexeme == "%") {      //  % MODULUS CASE
-				fprintf(out,"\nBRZERO %s",label.c_str());
+			if (n->child2->tk1.lexeme == "%") { // % Case     // LOOP 'OUT' LABEL TEST
+				fprintf(out,"\nBRZERO %s",label2.c_str());
 			} else if (n->child2->tk1.lexeme == "<") {      // < LESS THAN
-				fprintf(out,"\nBRZPOS %s",label.c_str());
+				fprintf(out,"\nBRZPOS %s",label2.c_str());
 			} else if (n->child2->tk1.lexeme == ">") {      // > GREATER THAN
-				fprintf(out,"\nBRZNEG %s",label.c_str());
+				fprintf(out,"\nBRZNEG %s",label2.c_str());
 			} else if (n->child2->tk1.lexeme == "<<") {     // << LESS THAN OR EQUAL
-				fprintf(out,"\nBRPOS %s",label.c_str());
+				fprintf(out,"\nBRPOS %s",label2.c_str());
 			} else if (n->child2->tk1.lexeme == ">>") {    // >> GREATER THAN OR EQUAL
-				fprintf(out,"\nBRNEG %s",label.c_str());
+				fprintf(out,"\nBRNEG %s",label2.c_str());
 			} else if (n->child2->tk1.lexeme == "=") {
-				fprintf(out,"\nBRPOS %s",label.c_str());   // = EQUALITY COMPARITOR
-				fprintf(out,"\nBRNEG %s",label.c_str());
+				fprintf(out,"\nBRPOS %s",label2.c_str());   // = EQUALITY COMPARITOR
+				fprintf(out,"\nBRNEG %s",label2.c_str());
 			}
-			recGen(n->child4, out);              
-			fprintf(out,"\nBR %s\n",label.c_str());    // LABEL NAME WRONG
-			fprintf(out,"\n%s: NOOP",label2.c_str());
+			recGen(n->child4, out);
+			fprintf(out,"\nBR %s\n",label.c_str());    // RESTART LOOP LABEL
+			fprintf(out,"\n%s: NOOP",label2.c_str());  // OUT LABEL BELOW
 			break;
 		case ASSIGNn:			 
 			recGen(n->child1,out);           /* evaluate rhs */
