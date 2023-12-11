@@ -175,6 +175,8 @@ void recGen(node *n, FILE *out){     // recursive code generation
 		case Rn:
 			if(n->tk1.type == "IDENTIFIER"){
 				fprintf(out,"\nLOAD %s",n->tk1.lexeme.c_str());
+				fprintf(out,"\nPUSH");
+				fprintf(out,"\nSTACKW 0");
 			} else if(n->tk1.type == "INTEGER"){
 				fprintf(out,"\nLOAD %s",n->tk1.lexeme.c_str());
 				fprintf(out,"\nPUSH");
