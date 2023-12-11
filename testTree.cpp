@@ -298,8 +298,9 @@ void recGen(node *n, FILE *out){     // recursive code generation
 		case ASSIGNn:
 			// fprintf(out,"\nSTACKW 0"); 
 			
-			fprintf(out,"\nLOAD ");    			 
+			// fprintf(out,"\nLOAD ");    			 
 			recGen(n->child1,out);           /* evaluate rhs */
+			fprintf(out, "\nSTACKR 0");
 			fprintf(out,"\nSTORE %s",n->tk1.lexeme.c_str());			
 			break;	
 		case ROn:
