@@ -18,12 +18,15 @@ simple makefile and readme included
 Added static semantics (double declaration or use without declaration)
 added it to testTree.cpp and testTree.h because the semantics are just another traversal
 
-out of testfiles/k1 - k7
-    k1, k2, k4, k5 compiled and ran!
-    k3, k6, k7 compiled bad programs that didn't work
-    k3 bc too many arithmetic expressions
-    k6 bc xloop was never funcitonal
-    k7 bc xloop and xlet not functional
+All 7 testfiles (testfiles k1-k7) compiled and ran!
+I use the ASM stack as a storage space as opposed to creating new temp vars,
+and especially with k7 program (nested loops) the stack became very full very fast.
+This never causes the wrong var to be popped and used, but can overfill the stack in 
+larger programs. 
+
+I used a mix of preserving given vars, creating temp vars, and utilizing the stack
+to avoid creating too many vars. This led to me learning about all 3 implementations 
+and seeing the merits and challenges of each. 
 
 Full BNF:
 <program>     ->      <vars> xopen <stats> xclose

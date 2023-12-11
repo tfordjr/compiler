@@ -141,7 +141,7 @@ static char *newName(nameType what){
 void recGen(node *n, FILE *out){     // recursive code generation
 	string label, label2, argR;    // local temp or labels
 
-	if(n == NULL)
+	if(n == NULL)   // return if child node is null
 		return;	
 
 	switch(n->label){
@@ -161,56 +161,56 @@ void recGen(node *n, FILE *out){     // recursive code generation
 			fprintf(out,"%s %s\n",n->tk1.lexeme.c_str(), n->tk3.lexeme.c_str());			
 			break;		
 		case EXPn:
-			recGen(n->child1, out);
-			recGen(n->child2, out);
+			recGen(n->child1, out);     // Eval LHS
+			recGen(n->child2, out);     // Eval RHS
 			if(n->tk1.lexeme == "*"){
 				argR = newName(VAR);
-				fprintf(out,"\nSTACKR 0\nPOP");         
+				fprintf(out,"\nSTACKR 0\nPOP");           // POP RHS
 				fprintf(out,"\nSTORE %s", argR.c_str());     
-				fprintf(out,"\nSTACKR 0\nPOP");				 
-				fprintf(out,"\nMULT %s", argR.c_str());
-				fprintf(out,"\nPUSH\nSTACKW 0");
+				fprintf(out,"\nSTACKR 0\nPOP");			  // POP LHS
+				fprintf(out,"\nMULT %s", argR.c_str());   // PERFROM MULT
+				fprintf(out,"\nPUSH\nSTACKW 0");          // PUSH RESULT TO STACK
 			} else if(n->tk1.lexeme == "/"){
 				argR = newName(VAR);
-				fprintf(out,"\nSTACKR 0\nPOP");         
+				fprintf(out,"\nSTACKR 0\nPOP");          // POP RHS
 				fprintf(out,"\nSTORE %s", argR.c_str());     
-				fprintf(out,"\nSTACKR 0\nPOP");				 
-				fprintf(out,"\nDIV %s", argR.c_str());
-				fprintf(out,"\nPUSH\nSTACKW 0");
+				fprintf(out,"\nSTACKR 0\nPOP");			 // POP LHS
+				fprintf(out,"\nDIV %s", argR.c_str());   // PERFORM DIV
+				fprintf(out,"\nPUSH\nSTACKW 0");         // PUSH RESULT
 			} 
 			break;
 		case Mn:
-			recGen(n->child1, out);
-			recGen(n->child2, out);
+			recGen(n->child1, out);       // Eval LHS
+			recGen(n->child2, out);       // Eval RHS
 			if(n->tk1.lexeme == "+"){
 				argR = newName(VAR);
-				fprintf(out,"\nSTACKR 0\nPOP");         
-				fprintf(out,"\nSTORE %s", argR.c_str());     
-				fprintf(out,"\nSTACKR 0\nPOP");				 
-				fprintf(out,"\nADD %s", argR.c_str());
-				fprintf(out,"\nPUSH\nSTACKW 0");
+				fprintf(out,"\nSTACKR 0\nPOP");           // POP RHS
+				fprintf(out,"\nSTORE %s", argR.c_str());  
+				fprintf(out,"\nSTACKR 0\nPOP");			  // POP LHS	 
+				fprintf(out,"\nADD %s", argR.c_str());    // PERFORM ADD
+				fprintf(out,"\nPUSH\nSTACKW 0");          // PUSH RESULT
 			}
 			break;
 		case Nn:
-			recGen(n->child1, out);	
-			recGen(n->child2, out);				
+			recGen(n->child1, out);	       // Eval LHS
+			recGen(n->child2, out);		   // Eval RHS		
 			if(n->tk1.lexeme == "-"){
 				argR = newName(VAR);
-				fprintf(out,"\nSTACKR 0\nPOP");         
+				fprintf(out,"\nSTACKR 0\nPOP");           // POP RHS
 				fprintf(out,"\nSTORE %s", argR.c_str());     
-				fprintf(out,"\nSTACKR 0\nPOP");				 
-				fprintf(out,"\nSUB %s", argR.c_str());
-				fprintf(out,"\nPUSH\nSTACKW 0");
+				fprintf(out,"\nSTACKR 0\nPOP");			  // POP LHS
+				fprintf(out,"\nSUB %s", argR.c_str());    // PERFORM SUB
+				fprintf(out,"\nPUSH\nSTACKW 0");          // PUSH RESULT TO STACK
 			} else if (n->tk1.lexeme == "~"){
-				fprintf(out,"\nSTACKR 0\nPOP"); 
-				fprintf(out,"\nMULT -1"); 
-				fprintf(out,"\nPUSH\nSTACKW 0");
+				fprintf(out,"\nSTACKR 0\nPOP");           // POP VAR
+				fprintf(out,"\nMULT -1");                 // * -1
+				fprintf(out,"\nPUSH\nSTACKW 0");          // PUSH VAR
 			}
 			break;
-		case Rn:
-			if(n->tk1.type == "IDENTIFIER"){
-				fprintf(out,"\nLOAD %s",n->tk1.lexeme.c_str());
-				fprintf(out,"\nPUSH\nSTACKW 0");
+		case Rn:          // Both cases are the same, there is room to improve this code
+			if(n->tk1.type == "IDENTIFIER"){        // and prevent stack from filling 
+				fprintf(out,"\nLOAD %s",n->tk1.lexeme.c_str()); // that's why I haven't
+				fprintf(out,"\nPUSH\nSTACKW 0");                 // optimized it
 			} else if(n->tk1.type == "INTEGER"){
 				fprintf(out,"\nLOAD %s",n->tk1.lexeme.c_str());
 				fprintf(out,"\nPUSH\nSTACKW 0");				
@@ -237,12 +237,12 @@ void recGen(node *n, FILE *out){     // recursive code generation
 			fprintf(out,"READ %s",n->tk1.lexeme.c_str());
 			break;
 		case OUTn:
-			argR = newName(VAR);
+			argR = newName(VAR);     // I don't think saving this var is necessary here
 			recGen(n->child1, out);
 			fprintf(out,"\nSTACKR 0");
 			fprintf(out,"\nPOP");
-			fprintf(out,"\nSTORE %s",argR.c_str());
-			fprintf(out,"\nWRITE %s",argR.c_str());
+			fprintf(out,"\nSTORE %s",argR.c_str());   // should just be able to write
+			fprintf(out,"\nWRITE %s",argR.c_str());   // from acc, this var is unused
 			break;			
 		case IFn:
 			recGen(n->child3, out);              /* exprRight */
