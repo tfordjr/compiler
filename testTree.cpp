@@ -177,8 +177,8 @@ void recGen(node *n, FILE *out){     // recursive code generation
 			}
 			break;
 		case Nn:
-			recGen(n->child2, out);	
-			recGen(n->child1, out);				
+			recGen(n->child1, out);	
+			recGen(n->child2, out);				
 			if(n->tk1.lexeme == "-"){
 				argR = newName(VAR);
 				fprintf(out,"\nSTACKR 0\nPOP");         
