@@ -13,7 +13,7 @@ using namespace std;
 
 int main(int argc, char* argv[]){
     
-    std::string outfileName= std::string(argv[1]) + ".asm";
+    std::string outfileName;
     std::ifstream inputFile;  // File Object
     std::string input;        // input buffer will hold input regardless of input method
 
@@ -29,7 +29,8 @@ int main(int argc, char* argv[]){
         } 
         outfileName = "a.asm";
     } else {
-        // outfileName = std::string(argv[1]) + ".asm";
+        outfileName = std::string(argv[1]) + ".asm";
+        std::cout << outfileName;
         std::string filename = std::string(argv[1]) + ".f23"; // append .f23 to filename
         inputFile.open(filename);
         if (!inputFile) {
