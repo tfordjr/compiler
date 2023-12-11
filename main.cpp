@@ -27,7 +27,7 @@ int main(int argc, char* argv[]){
         while (std::getline(std::cin, line)) {
             input += line + '\n';  // store stdin in input string
         } 
-        outfileName = "outfile.asm";
+        outfileName = "a.asm";
     } else {
         outfileName = std::string(argv[1]) + ".asm";
         std::string filename = std::string(argv[1]) + ".f23"; // append .f23 to filename
